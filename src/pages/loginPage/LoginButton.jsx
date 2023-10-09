@@ -1,0 +1,8 @@
+export default function LoginButton({ children , color, width }) {
+  return (
+    <button className="bg-blue-900 text-white font-semibold text-xl w-full rounded-md py-3 px-1.5
+    hover:bg-blue-700">
+      {children}
+    </button>
+  );
+}
