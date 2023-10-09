@@ -2,9 +2,10 @@ import LoginForm from "./LoginForm";
 import LoginHeader from "./LoginHeader";
 import icon from "../../assets/stocklite_icon2.jpg";
 import RegisterButton from "./RegisterButton";
+
 export default function LoginPage() {
   return (
-    <div className="px-4 py-8 flex flex-col gap-5 items-center bg-gray-50 h-full">
+    <div className="px-4 py-8 flex flex-col gap-5 items-center bg-gray-50 w-full">
       <LoginHeader />
       <div>
         <img src={icon} alt="login_page_icon" className="w-72" />
