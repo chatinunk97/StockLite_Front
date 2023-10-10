@@ -44,14 +44,13 @@ export default function RegisterForm() {
         setRegisterError(validateResult.error);
         return;
       }
-      const signUpResult = await axios.post("/manage/admin", registerInput);
-      console.log(signUpResult);
+      await axios.post("/manage/admin", registerInput);
       Swal.fire(
         "Register Completed !",
         `Welcome aborad , ${registerInput.username}`,
         "success"
       );
-      setRegisterInput({});
+      setRegisterError({});
     } catch (error) {
       console.log(error);
       Swal.fire("Login Failed", `${error.response.data.message}`, "error");
@@ -71,6 +70,7 @@ export default function RegisterForm() {
             {el.label}
           </label>
           <InputBar
+          isError={registerError?.[el.dataName]}
             value={registerInput[el.dataName]}
             placeHolder={el.label}
             type={el.type}

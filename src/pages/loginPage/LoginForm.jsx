@@ -20,12 +20,15 @@ export default function LoginForm() {
   const handleSubmitLogin = async () => {
     try {
       setLoginError(null);
-      const validateResult = validateLogin(LoginSchema,loginInput);
+      const validateResult = validateLogin(LoginSchema, loginInput);
       if (validateResult.error) {
         setLoginError(validateResult.error);
         return;
       }
-      const loginResult = await axios.post("/manage/login", validateResult.value);
+      const loginResult = await axios.post(
+        "/manage/login",
+        validateResult.value
+      );
       addAccessToken(loginResult.data.accessToken);
       Swal.fire(
         "Login Success",
@@ -46,7 +49,6 @@ export default function LoginForm() {
       <InputBar
         value={loginInput.usernameOrEmail}
         placeHolder={"Email or username"}
-        type="text"
         isError={loginError?.usernameOrEmail}
         onChange={(event) => {
           handleInputChange(event, "usernameOrEmail");

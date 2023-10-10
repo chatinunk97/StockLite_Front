@@ -1,10 +1,5 @@
-export default function InputBar({
-  placeHolder,
-  type = "text",
-  value,
-  onChange,
-  isError,
-}) {
+export default function InputBar({placeHolder,  type = "text",  value,  onChange,  isError,}) 
+{
   return (
     <div className="relative w-full">
       <input

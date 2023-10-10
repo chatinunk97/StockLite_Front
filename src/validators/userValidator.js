@@ -12,7 +12,7 @@ export const RegisterAdminSchema = Joi.object({
   companyName: Joi.string().max(50).required(),
   companyLogo: Joi.string(),
   //Check Admin cridential
-  firstName: Joi.string().max(50).required(),
+  firstName: Joi.string().max(50).required().label('Firstname'),
   lastName: Joi.string().max(50).required(),
   username: Joi.string().alphanum().min(3).max(30).required(),
   password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).required(),
