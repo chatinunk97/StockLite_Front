@@ -70,7 +70,7 @@ export default function RegisterForm() {
             {el.label}
           </label>
           <InputBar
-          isError={registerError?.[el.dataName]}
+            isError={registerError?.[el.dataName]}
             value={registerInput[el.dataName]}
             placeHolder={el.label}
             type={el.type}

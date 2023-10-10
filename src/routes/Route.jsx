@@ -1,6 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginPage from "../pages/loginpage/LoginPage";
 import RegisterPage from "../pages/registerPage/RegisterPage";
+import WMSHomePage from "../pages/WMSPage/WMSHomePage";
+import WMSLayout from "../pages/WMSPage/WMSLayout";
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -8,8 +10,12 @@ const router = createBrowserRouter([
   },
   { path: "/register", element: <RegisterPage /> },
   {
-    path: "/",
-    element: <h1>Need to be login dayo</h1>,
+    path: "/wms",
+    element: <WMSLayout/>,
+    children :[{
+      path :'home',
+      element : <WMSHomePage/>
+    }]
   },
 ]);
 
