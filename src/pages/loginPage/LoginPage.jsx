@@ -2,6 +2,7 @@ import LoginForm from "./LoginForm";
 import LoginHeader from "./LoginHeader";
 import icon from "../../assets/stocklite_icon2.jpg";
 import RegisterButton from "./RegisterButton";
+import { Link } from "react-router-dom";
 
 export default function LoginPage() {
   return (
@@ -12,7 +13,9 @@ export default function LoginPage() {
       </div>
       <LoginForm />
       <hr className="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-300" />
-      <RegisterButton>Level up your SME today</RegisterButton>
+      <Link to="/register">
+        <RegisterButton>Level up your SME today</RegisterButton>
+      </Link>
     </div>
   );
 }
