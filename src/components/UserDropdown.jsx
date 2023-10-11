@@ -1,7 +1,6 @@
 import { useAuthContext } from "../hooks/auth-hook";
 export default function UserDropdown({ header, isOpen }) {
   const { logOutFunction } = useAuthContext();
-  console.log(logOutFunction)
   return (
     <>
       {isOpen && (

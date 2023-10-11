@@ -1,12 +1,13 @@
-export default function HomeNavigate({ src , text }) {
+import { Link } from "react-router-dom";
+
+export default function HomeNavigate({ src, text, link }) {
   return (
-    <div className="w-72 h-auto bg-blue-50 shadow-lg p-6 rounded-xl flex flex-col gap-5 justify-center items-center hover:bg-blue-100 cursor-pointer ">
-      <div className="">
-        <img src={src} alt="" className="object-cover" />
-      </div>
-      <div>
-        <span>{text}</span>
-      </div>
-    </div>
+    <Link
+      to={link}
+      className=" w-full max-w-lg h-auto bg-blue-50 shadow-lg p-6 rounded-xl flex flex-col gap-10 justify-center items-center hover:bg-blue-100 cursor-pointer flex-grow"
+    >
+      <img src={src} alt="" className="object-cover" />
+      <span className="font-bold text-5xl">{text}</span>
+    </Link>
   );
 }
