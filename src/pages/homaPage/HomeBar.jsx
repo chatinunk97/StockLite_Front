@@ -3,7 +3,7 @@ import { useAuthContext } from "../../hooks/auth-hook";
 export default function HomeBar() {
     const {logOutFunction} = useAuthContext()
   return (
-    <div className="flex gap-5 bg-blue-800">
+    <div className="flex gap-5 bg-blue-800 py-5">
       <div>Logo</div>
       <div>WMS</div>
       <div>POS</div>

@@ -31,8 +31,7 @@ export default function AuthContextProvider({ children }) {
   const loginFunction = async (validatedInput) => {
     const loginResult = await axios.post("/manage/login", validatedInput);
     addAccessToken(loginResult.data.accessToken);
-    AlertOK().then((response) => {
-      console.log(response);
+    AlertOK(loginResult.data.user.username).then((response) => {
       if (response.value || response.dismiss) {
         setLoginUser(loginResult.data.user);
       }
