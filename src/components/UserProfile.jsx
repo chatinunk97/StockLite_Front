@@ -27,7 +27,10 @@ export default function UserProfile({ LoginUser }) {
       <div
         ref={dropDownEl}
         onClick={() => setIsOpen(!isOpen)}
-        className="flex flex-col lg:flex-row justify-center items-center p-3 gap-2 px-10  cursor-pointer hover:bg-blue-300 hover:underline hover:text-white"
+        className="flex flex-col 
+        justify-center items-center p-3 gap-2 px-10  cursor-pointer 
+        lg:flex-row  lg:border-l lg:border-gray-500
+        hover:bg-blue-300 hover:underline hover:text-white"
       >
         <img src={userIcon} className="w-10 md:w-24 lg:w-10"></img>
         <div className="hidden lg:block text-xl">{firstName}</div>

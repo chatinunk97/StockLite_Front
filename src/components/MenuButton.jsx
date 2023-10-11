@@ -7,7 +7,7 @@ export default function MenuButton({ link, text }) {
       to={link}
       className="flex items-center hover:bg-gray-200  rounded-md px-3 py-3 w-full
       md:bg-blue-100 md:hover:bg-blue-300 md:text-black md:font-semibold  md:shadow-md md:justify-center
-        lg:rounded-none lg:shadow-none
+        lg:rounded-none lg:shadow-none lg:border-l lg:border-gray-500
       "
     >
       <span className="font-semibold">{text}</span>

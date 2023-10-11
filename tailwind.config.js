@@ -9,10 +9,11 @@ export default {
       },
       screens: {
         'maxsize': '2000px',
+        'tablet' : '1200px'
       },
       maxWidth:{
         '1/8' : '80%'
-      }
+      },
     },
 
   },

@@ -35,7 +35,7 @@ export default function HomeBar({ LoginUser }) {
           <img src={logo} alt="stockLiteLogo" className="w-60 md:w-80 lg:w-56" />
         </Link>
       </div>
-      <div className="hidden  md:grid md:grid-cols-2 gap-3 lg:flex w-full md:p-5 lg:p-0 lg:gap-0">
+      <div className="hidden  md:grid md:grid-cols-2 gap-3 lg:flex w-full md:p-5 lg:p-0 lg:gap-0 lg:h-full">
         {menuList.map((el) => {
           switch (el.link) {
             case "/pos":
