@@ -1,17 +1,18 @@
 import RegisterForm from "./RegisterForm";
+import RegisterFormHeader from "./RegisterFormHeader";
 import RegisterHeader from "./RegisterHeader";
+import { Link } from "react-router-dom";
 
 export default function RegisterPage() {
   return (
-    <div
-      className="flex flex-col  gap-5 items-center bg-gray-50 w-full h-auto m-auto 
-    tablet:flex-row
-  md:max-w-1/8"
-    >
+    <div className="p-5 flex flex-col gap-5 justify-center items-stretch
+    md:flex-row md:h-full
+    ">
       <RegisterHeader />
-      <div className="w-full flex flex-col justify-center items-center gap-2 h-full py-3">
+      <div className="flex flex-col h-full justify-center w-full gap-10 ">
+      <RegisterFormHeader />
         <RegisterForm />
-  
+ 
       </div>
     </div>
   );

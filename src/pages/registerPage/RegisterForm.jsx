@@ -4,11 +4,11 @@ import SubmitButton from "../../components/SubmitButton";
 import axios from "../../config/axios";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+
 import {
   RegisterAdminSchema,
   validateLogin,
 } from "../../validators/userValidator";
-import RegisterFormHeader from "./RegisterFormHeader";
 
 const inputList = [
   { id: "1", dataName: "firstName", label: "First name" },
@@ -64,42 +64,39 @@ export default function RegisterForm() {
     }
   };
   return (
-    <>
-      <RegisterFormHeader />
-      <form
-        onSubmit={(event) => {
-          event.preventDefault();
-        }}
-        className="flex flex-col tablet:grid gap-3"
-      >
-        {inputList.map((el) => (
-          <div className={`w-full ${el.colspan}`} key={el.id}>
-            <label className="block text-gray-700 text-sm font-bold mb-2 w-">
-              {el.label}
-            </label>
-            <InputBar
-              isError={registerError?.[el.dataName]}
-              value={registerInput[el.dataName]}
-              placeHolder={el.label}
-              type={el.type}
-              onChange={(event) => {
-                handleInputChange(event, el.dataName);
-              }}
-              colspan={el.colspan}
-            />
-          </div>
-        ))}
-        <div className="col-span-2">
-        <SubmitButton onClick={handleSubmitSignUp} width="w-48">
-          Sign up 
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+      }}
+      className="flex flex-col md:grid gap-3 "
+    >
+      {inputList.map((el) => (
+        <div className={`w-full ${el.colspan}`} key={el.id}>
+          <label className="block text-gray-700 text-sm font-bold mb-2 w-">
+            {el.label}
+          </label>
+          <InputBar
+            isError={registerError?.[el.dataName]}
+            value={registerInput[el.dataName]}
+            placeHolder={el.label}
+            type={el.type}
+            onChange={(event) => {
+              handleInputChange(event, el.dataName);
+            }}
+            colspan={el.colspan}
+          />
+        </div>
+      ))}
+      <div className="col-span-2 flex flex-col md:flex-row justify-start gap-5 items-center">
+        <SubmitButton onClick={handleSubmitSignUp} width="w-full md:w-48 ">
+          Sign up
         </SubmitButton>
         <Link to={"/login"}>
-          <span className="font-semibold hover:underline cursor-pointer px-3">
+          <span className="font-semibold hover:underline cursor-pointer px-3 block text-center ">
             Already have an account ? Login
           </span>
         </Link>
-        </div>
-      </form>
-    </>
+      </div>
+    </form>
   );
 }

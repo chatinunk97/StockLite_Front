@@ -14,7 +14,9 @@ export default function LoginPage() {
   // }
   return (
     <div
-      className="px-4 py-8 flex flex-col  gap-5 items-center bg-gray-50 w-full h-full m-auto 
+      className="px-4 py-8 flex flex-col  items-center bg-gray-50 w-full h-full m-auto 
+      min-w-[400px]
+      max-w-1/8
       md:flex-row
     md:max-w-1/8"
     >
