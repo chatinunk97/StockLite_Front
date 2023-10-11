@@ -1,10 +1,18 @@
-import LoginForm from "./LoginForm";
+
 import LoginHeader from "./LoginHeader";
 import icon from "../../assets/stocklite_icon2.jpg";
 import RegisterButton from "./RegisterButton";
 import { Link } from "react-router-dom";
+import { useAuthContext } from "../../hooks/auth-hook";
+// import { Navigate } from "react-router-dom";
+import LoginForm from "./LoginForm";
 
 export default function LoginPage() {
+  const { LoginUser } = useAuthContext();
+
+  // if (LoginUser) {
+  //   return <Navigate to={"/"} />;
+  // }
   return (
     <div className="px-4 py-8 flex flex-col gap-5 items-center bg-gray-50 w-full">
       <LoginHeader />

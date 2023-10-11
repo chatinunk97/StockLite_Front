@@ -1,12 +1,12 @@
 import { useState } from "react";
-import axios from "../../config/axios";
-import { addAccessToken } from "../../utils/token-storage";
 import InputBar from "../../components/InputBar";
 import SubmitButton from "../../components/SubmitButton";
 import { LoginSchema, validateLogin } from "../../validators/userValidator";
 import Swal from "sweetalert2";
+import { useAuthContext } from "../../hooks/auth-hook";
 
 export default function LoginForm() {
+  const { loginFunction } = useAuthContext();
   const [loginInput, setLoginInput] = useState({
     usernameOrEmail: "",
     password: "",
@@ -25,16 +25,7 @@ export default function LoginForm() {
         setLoginError(validateResult.error);
         return;
       }
-      const loginResult = await axios.post(
-        "/manage/login",
-        validateResult.value
-      );
-      addAccessToken(loginResult.data.accessToken);
-      Swal.fire(
-        "Login Success",
-        `Welcome back , ${loginInput.usernameOrEmail}`,
-        "success"
-      );
+      await loginFunction(validateResult.value);
     } catch (error) {
       Swal.fire("Login Failed", `${error.response.data.message}`, "error");
     }
