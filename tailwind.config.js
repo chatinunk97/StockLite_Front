@@ -7,7 +7,14 @@ export default {
         waterred: "#fb7185",
         waterredHover:"#f43f5e"
       },
+      screens: {
+        'maxsize': '2000px',
+      },
+      maxWidth:{
+        '1/8' : '80%'
+      }
     },
+
   },
   plugins: [],
 };

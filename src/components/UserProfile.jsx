@@ -1,12 +1,15 @@
 import { useState } from "react";
 import userIcon from "../assets/userIcon.png";
-import UserDropdown from "./UserDropdown";
+import Dropdown from "./Dropdown";
 import { useEffect, useRef } from "react";
+import { useAuthContext } from "../hooks/auth-hook";
+
 export default function UserProfile({ LoginUser }) {
-  const { firstName } = LoginUser;
+  const { logOutFunction } = useAuthContext();
+  const { firstName, lastName } = LoginUser;
   const [isOpen, setIsOpen] = useState(false);
   const dropDownEl = useRef(null);
-  
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (!dropDownEl.current?.contains(event.target)) {
@@ -20,22 +23,28 @@ export default function UserProfile({ LoginUser }) {
   }, []);
 
   return (
-    <div
-      ref={dropDownEl}
-      onClick={() => setIsOpen(!isOpen)}
-      className=" border-t-0 relative font-bold  cursor-pointer flex justify-center items-center w-full h-full border border-gray-500 border-b-0 border-l-2 border-r-0 text-2xl"
-    >
-      <div className="px-2  hover:text-white w-full h-full flex justify-center items-center gap-4 hover:underline  hover:bg-blue-400">
-        <div>
-          <img src={userIcon} className="w-12"></img>
-        </div>
-        {firstName}
+    <>
+      <div
+        ref={dropDownEl}
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex flex-col lg:flex-row justify-center items-center p-3 gap-2 px-10  cursor-pointer hover:bg-blue-300 hover:underline hover:text-white"
+      >
+        <img src={userIcon} className="w-10 md:w-24 lg:w-10"></img>
+        <div className="hidden lg:block text-xl">{firstName}</div>
       </div>
-      <UserDropdown
-        header={"User menu"}
+      <Dropdown
+        header={`${firstName} ${lastName}`}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
+        content={
+          <div
+            onClick={logOutFunction}
+            className="hover:bg-gray-200 px-3 py-3 rounded-lg"
+          >
+            Logout
+          </div>
+        }
       />
-    </div>
+    </>
   );
 }
