@@ -3,7 +3,6 @@ import HomeNavigate from "./HomeNavigate";
 import posIcon from "../../assets/posIcon.png";
 import wmsIcon from "../../assets/wmsIcon.png";
 import adminIcon from "../../assets/adminIcon.png";
-import { useAuthContext } from "../../hooks/auth-hook";
 
 const navigatorList = [
   { id: 1, label: "pos", src: posIcon, text: "POS" },
@@ -11,8 +10,7 @@ const navigatorList = [
   { id: 3, label: "admin", src: adminIcon, text: "ADMIN" },
 ];
 
-export default function HomeBody() {
-  const { LoginUser } = useAuthContext();
+export default function HomeBody({LoginUser}) {
   const { userRole } = LoginUser;
   return (
     <div className="h-full bg-gray-50 flex justify-center py-10">

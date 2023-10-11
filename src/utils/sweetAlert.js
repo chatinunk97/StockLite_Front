@@ -14,6 +14,7 @@ export const Alert3Choice = (
   denyText = "Cancel"
 ) => {
   return Swal.fire({
+    heightAuto: false,
     title,
     showDenyButton: true,
     showCancelButton: isShowCancel,

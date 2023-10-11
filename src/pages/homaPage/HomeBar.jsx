@@ -1,15 +1,20 @@
-import React from "react";
-import { useAuthContext } from "../../hooks/auth-hook";
-export default function HomeBar() {
-    const {logOutFunction} = useAuthContext()
+import logo from "../../assets/stocklite_logo.png";
+import MenuButton from "../../components/MenuButton";
+import UserProfile from "../../components/UserProfile";
+export default function HomeBar({LoginUser}) {
+
   return (
-    <div className="flex gap-5 bg-blue-800 py-5">
-      <div>Logo</div>
-      <div>WMS</div>
-      <div>POS</div>
-      <div>User Manager</div>
-      <div>Contact Us</div>
-      <div onClick={logOutFunction}>Log Out</div>
+    <div className="flex items-center  gap-5 bg-blue-200 ">
+      <div className="py-3">
+        <img src={logo} alt="stockLiteLogo" className="w-52" />
+      </div>
+      <div className="flex justify-between flex-grow h-full w-full ">
+        <MenuButton>POS</MenuButton>
+        <MenuButton>WMS</MenuButton>
+        <MenuButton>User manager</MenuButton>
+        <MenuButton>ContactUs</MenuButton>
+        <UserProfile LoginUser={LoginUser}/>
+      </div>
     </div>
   );
 }
