@@ -2,8 +2,8 @@ import { useState } from "react";
 import InputBar from "../../components/InputBar";
 import SubmitButton from "../../components/SubmitButton";
 import { LoginSchema, validateLogin } from "../../validators/userValidator";
-import Swal from "sweetalert2";
 import { useAuthContext } from "../../hooks/auth-hook";
+import { AlertNG } from "../../utils/sweetAlert";
 
 export default function LoginForm() {
   const { loginFunction } = useAuthContext();
@@ -27,7 +27,7 @@ export default function LoginForm() {
       }
       await loginFunction(validateResult.value);
     } catch (error) {
-      Swal.fire("Login Failed", `${error.response.data.message}`, "error");
+      AlertNG(error.response.data.message)
     }
   };
   return (

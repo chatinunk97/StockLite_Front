@@ -5,3 +5,7 @@ export const addAccessToken = (token) => {
   export const getAccessToken = ()=>{
     return localStorage.getItem(ACCESS_TOKEN)
   }
+
+  export const removeAccesToken = ()=>{
+    localStorage.removeItem(ACCESS_TOKEN)
+  }
