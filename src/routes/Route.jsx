@@ -47,7 +47,11 @@ const router = createBrowserRouter([
             <AdminMainPage />
           </Authenticated>
         ),
-        children: [{ path: "/admin/user", element: <h1>Filter ja</h1> }],
+        children: [
+          { path: "/admin", element: <h1>Filter ja</h1> },
+          { path: "/admin/create", element: <h1>CREATE USER</h1> },
+          { path: "/admin/edit", element: <h1>Edit USer</h1> },
+        ],
       },
     ],
   },
