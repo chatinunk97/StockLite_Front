@@ -6,6 +6,9 @@ import RedirectIfAuthenticate from "../features/RedirectIfAuthenticate";
 import HomePage from "../pages/homaPage/HomePage";
 import HomeBody from "../pages/homaPage/HomeBody";
 import AdminMainPage from "../pages/AdminPage/AdminMainPage";
+import AdminSearchUser from "../pages/AdminPage/AdminSearchUser/AdminSearchUser";
+import AdminCreateUser from "../pages/AdminPage/AdminCreateUser/AdminCreateUser";
+import AdminEditUser from "../pages/AdminPage/AdminEditUSer/AdminEditUser";
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -48,9 +51,9 @@ const router = createBrowserRouter([
           </Authenticated>
         ),
         children: [
-          { path: "/admin", element: <h1>Filter ja</h1> },
-          { path: "/admin/create", element: <h1>CREATE USER</h1> },
-          { path: "/admin/edit", element: <h1>Edit USer</h1> },
+          { path: "/admin", element: <AdminSearchUser/> },
+          { path: "/admin/create", element: <AdminCreateUser/> },
+          { path: "/admin/edit", element: <AdminEditUser/> },
         ],
       },
     ],

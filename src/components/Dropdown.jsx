@@ -3,7 +3,7 @@ export default function Dropdown({ header, isOpen, content }) {
     <>
       {isOpen && (
         <div
-          className="gap-3 flex flex-col w-52 absolute bg-white 
+          className="gap-3 flex flex-col w-52 absolute bg-white z-10
         top-14 right-3 border rounded-xl shadow-xl p-4
         md:top-[110px] md:right-10 md:w-80 
         lg:top-[65px] lg:right-[160px]

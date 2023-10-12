@@ -1,9 +1,12 @@
-import React from "react";
+import { useLocation } from "react-router-dom";
 
-export default function SubMenuButton({ children }) {
+export default function SubMenuButton({ children, path }) {
+  const pathMatch = useLocation().pathname.split("/admin")[1] === path;
   return (
     <button
-      className="bg-hardgray rounded-lg text-2xl text-white w-full hover:bg-black font-semibold"
+      className={`${
+        pathMatch ? `bg-black` : `bg-hardgray`
+      } rounded-lg text-2xl text-white w-full hover:bg-black font-semibold  `}
     >
       {children}
     </button>

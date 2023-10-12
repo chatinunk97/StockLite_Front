@@ -1,4 +1,4 @@
-export default function InputBar({placeHolder,  type = "text",  value,  onChange,  isError, colspan = ""}) 
+export default function InputBar({placeHolder,  type = "text",  value,  onChange,  isError}) 
 {
   return (
     <div className="relative w-full">
@@ -7,10 +7,10 @@ export default function InputBar({placeHolder,  type = "text",  value,  onChange
         onChange={onChange}
         placeholder={placeHolder}
         type={type}
-        className={`w-full block rounded-md px-4 py-3 border-2 ${
+        className={`w-full block rounded-md px-4 py-3 outline max-w-7xl  ${
           isError
-            ? `border-waterred focus:outline-none :`
-            : ` border-gray-200 focus:border-none `
+            ? `outline-waterred focus:outline-waterred :`
+            : ` outline-gray-200 focus:outline-blue-500 `
         }`}
       ></input>
       {isError && <span className="relative left-3 ">{isError}</span>}
