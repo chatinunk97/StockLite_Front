@@ -3,7 +3,7 @@ import { useAuthContext } from "../hooks/auth-hook";
 
 export default function Authenticated({ children, authWho }) {
   const { LoginUser } = useAuthContext();
-
+console.log('first')
   if (!LoginUser) {
     return <Navigate to={"/login"} />;
   }

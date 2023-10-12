@@ -1,11 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginPage from "../pages/loginpage/LoginPage";
 import RegisterPage from "../pages/registerPage/RegisterPage";
-import WMSHomePage from "../pages/WMSPage/WMSHomePage";
 import Authenticated from "../features/Authenticated";
 import RedirectIfAuthenticate from "../features/RedirectIfAuthenticate";
 import HomePage from "../pages/homaPage/HomePage";
 import HomeBody from "../pages/homaPage/HomeBody";
+import AdminMainPage from "../pages/AdminPage/AdminMainPage";
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -44,9 +44,10 @@ const router = createBrowserRouter([
         path: "/admin",
         element: (
           <Authenticated authWho={"admin"}>
-            <h1>admin</h1>
+            <AdminMainPage />
           </Authenticated>
         ),
+        children: [{ path: "/admin/user", element: <h1>Filter ja</h1> }],
       },
     ],
   },
