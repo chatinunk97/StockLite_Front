@@ -72,7 +72,7 @@ export default function RegisterForm() {
     >
       {inputList.map((el) => (
         <div className={`w-full ${el.colspan}`} key={el.id}>
-          <label className="block text-gray-700 text-sm font-bold mb-2 w-">
+          <label className="block text-gray-700 text-sm font-bold mb-2 ">
             {el.label}
           </label>
           <InputBar

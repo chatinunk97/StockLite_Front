@@ -5,10 +5,12 @@ export default {
     extend: {
       colors: {
         waterred: "#fb7185",
-        waterredHover:"#f43f5e"
+        waterredHover:"#f43f5e",
+        smoothgray : "#d9d9d9",
+        hardgray :"#b3a8a8"
       },
       screens: {
-        'maxsize': '2000px',
+        'maxsize': '1800px',
         'tablet' : '1200px'
       },
       maxWidth:{

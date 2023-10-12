@@ -1,7 +1,6 @@
 import RegisterForm from "./RegisterForm";
 import RegisterFormHeader from "./RegisterFormHeader";
 import RegisterHeader from "./RegisterHeader";
-import { Link } from "react-router-dom";
 
 export default function RegisterPage() {
   return (
@@ -9,7 +8,7 @@ export default function RegisterPage() {
     md:flex-row md:h-full
     ">
       <RegisterHeader />
-      <div className="flex flex-col h-full justify-center w-full gap-10 ">
+      <div className="flex flex-col h-full justify-center w-full gap-10 md:order-first">
       <RegisterFormHeader />
         <RegisterForm />
  
