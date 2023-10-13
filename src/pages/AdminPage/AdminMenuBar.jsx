@@ -7,7 +7,7 @@ export default function AdminMenuBar() {
     <div className="bg-smoothgray flex r items-center">
       <Link
         to={"/admin"}
-        className="bg-black flex justify-center items-center rounded-lg px-10 py-2 cursor-pointer"
+        className=" h-full bg-black flex justify-center items-center rounded-lg px-10 lg:py-2 cursor-pointer"
       >
         <img src={adminIcon} alt="adminIcon" className="w-24" />
         <span className="text-white text-2xl font-semibold">

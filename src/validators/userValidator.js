@@ -9,11 +9,11 @@ export const LoginSchema = Joi.object({
 });
 export const RegisterAdminSchema = Joi.object({
   //Check Company profile data
-  companyName: Joi.string().max(50).required(),
+  companyName: Joi.string().max(50).required().label('Company name'),
   companyLogo: Joi.string(),
   //Check Admin cridential
   firstName: Joi.string().max(50).required().label('Firstname'),
-  lastName: Joi.string().max(50).required(),
+  lastName: Joi.string().max(50).required().label('Last name'),
   username: Joi.string().alphanum().min(3).max(30).required(),
   password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).required(),
   repeat_password: Joi.string()

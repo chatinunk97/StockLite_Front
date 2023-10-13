@@ -13,7 +13,7 @@ export default function InputBar({placeHolder,  type = "text",  value,  onChange
             : ` outline-gray-200 focus:outline-blue-500 `
         }`}
       ></input>
-      {isError && <span className="relative left-3 ">{isError}</span>}
+      {isError && <span className="relative left-3 text-waterred">{isError}</span>}
     </div>
   );
 }
