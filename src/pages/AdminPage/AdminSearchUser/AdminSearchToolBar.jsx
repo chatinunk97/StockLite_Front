@@ -2,14 +2,11 @@ import ToolBarCheckBox from "../../../components/ToolBarCheckBox";
 import InputBar from "../../../components/InputBar";
 import SubmitButton from "../../../components/SubmitButton";
 import { useAdminContext } from "../../../hooks/admin-hook";
+import date from "date-and-time";
 
 export default function AdminSearchToolBar({ searchInput, setSearchInput }) {
-  const {
-    toolBarList,
-    setToolBar,
-    searchUser,
-    setSearchUserResult,
-  } = useAdminContext();
+  const { toolBarList, setToolBar, searchUser, setSearchUserResult } =
+    useAdminContext();
 
   const handleCheckBoxChange = (e) => {
     const findIndex = toolBarList.findIndex((el) => {
@@ -27,9 +24,17 @@ export default function AdminSearchToolBar({ searchInput, setSearchInput }) {
     setSearchInput({ ...searchInput, [field]: event.target.value });
   };
 
-  const handleSubmitSearch =async (event) => {
-    event.preventDefault()
+  const handleSubmitSearch = async (event) => {
+    event.preventDefault();
     const result = await searchUser(searchInput);
+    //Change date format
+    for (let user of result.data.searchResult) {
+      user.createdAt = date.transform(
+        user.createdAt.split("T")[0],
+        "YYYY-MM-DD",
+        "DD MMM YYYY"
+      );
+    }
     setSearchUserResult(result.data.searchResult);
   };
   return (

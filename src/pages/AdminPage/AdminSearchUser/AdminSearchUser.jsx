@@ -11,7 +11,7 @@ export default function AdminSearchUser() {
     username: ""
   });
   return (
-    <div>
+    <div className="flex flex-col gap-5">
       <AdminSearchToolBar
         searchInput={searchInput}
         setSearchInput={setSearchInput}
