@@ -29,8 +29,8 @@ export default function HomeBar({ LoginUser }) {
   }, []);
 
   return (
-    <div className="flex justify-between items-center bg-blue-200">
-      <div className="flex justify-center items-center hover:bg-blue-300 px-2">
+    <div className="flex justify-between items-center">
+      <div className="flex justify-center items-center h-full hover:bg-blue-300 px-2">
         <Link to={"/"}>
           <img src={logo} alt="stockLiteLogo" className="w-60 md:w-80 lg:w-56" />
         </Link>

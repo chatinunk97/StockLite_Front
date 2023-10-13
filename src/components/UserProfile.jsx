@@ -27,8 +27,7 @@ export default function UserProfile({ LoginUser }) {
       <div
         ref={dropDownEl}
         onClick={() => setIsOpen(!isOpen)}
-        className="flex flex-col 
-        justify-center items-center p-3 gap-2 px-10  cursor-pointer 
+        className="flex flex-col h-full justify-center items-center p-3 gap-2 px-10  cursor-pointer 
         lg:flex-row  lg:border-l lg:border-gray-500
         hover:bg-blue-300 hover:underline hover:text-white"
       >

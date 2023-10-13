@@ -22,3 +22,7 @@ export const Alert3Choice = (
     denyButtonText: denyText,
   });
 };
+
+export const AlertNotiSuc = (type,title,message) => {
+  Swal.fire(title, message, type);
+};

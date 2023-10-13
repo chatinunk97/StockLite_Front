@@ -2,7 +2,6 @@ import ToolBarCheckBox from "../../../components/ToolBarCheckBox";
 import InputBar from "../../../components/InputBar";
 import SubmitButton from "../../../components/SubmitButton";
 import { useAdminContext } from "../../../hooks/admin-hook";
-import date from "date-and-time";
 
 export default function AdminSearchToolBar({ searchInput, setSearchInput }) {
   const { toolBarList, setToolBar, searchUser, setSearchUserResult } =
@@ -24,21 +23,8 @@ export default function AdminSearchToolBar({ searchInput, setSearchInput }) {
     setSearchInput({ ...searchInput, [field]: event.target.value });
   };
 
-  const handleSubmitSearch = async (event) => {
-    event.preventDefault();
-    const result = await searchUser(searchInput);
-    //Change date format
-    for (let user of result.data.searchResult) {
-      user.createdAt = date.transform(
-        user.createdAt.split("T")[0],
-        "YYYY-MM-DD",
-        "DD MMM YYYY"
-      );
-    }
-    setSearchUserResult(result.data.searchResult);
-  };
   return (
-    <div className=" bg-smoothgray flex flex-col relative pt-5  ">
+    <div className=" bg-smoothgray flex flex-col relative p-5 rounded-md">
       <div className="flex justify-center items-center gap-20">
         {toolBarList.map((el) => {
           return (
@@ -54,7 +40,10 @@ export default function AdminSearchToolBar({ searchInput, setSearchInput }) {
         })}
       </div>
       <form
-        onSubmit={handleSubmitSearch}
+        onSubmit={(e) => {
+          e.preventDefault();
+          searchUser(searchInput);
+        }}
         className="px-48 py-5 flex flex-col gap-5"
       >
         {toolBarList.map((el) => {
@@ -76,7 +65,12 @@ export default function AdminSearchToolBar({ searchInput, setSearchInput }) {
         })}
       </form>
       <div className=" text-center">
-        <SubmitButton width="w-full" onClick={handleSubmitSearch}>
+        <SubmitButton
+          width="w-full"
+          onClick={() => {
+            searchUser(searchInput);
+          }}
+        >
           Search
         </SubmitButton>
       </div>
