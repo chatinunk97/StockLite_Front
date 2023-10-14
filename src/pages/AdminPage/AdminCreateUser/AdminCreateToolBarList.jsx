@@ -34,7 +34,7 @@ export default function AdminCreateToolBarList({ data, setData }) {
       {inputBarList.map((el) => {
         return (
           <div className="flex gap-2" key={el.id}>
-            <div className="w-72 flex justify-center items-center bg-white rounded-md">
+            <div className="font-semibold w-72 flex justify-center items-center bg-white rounded-md">
               {el.fieldName}
             </div>
             {el.option ? (

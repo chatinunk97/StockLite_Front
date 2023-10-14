@@ -24,8 +24,8 @@ export default function AdminSearchToolBar({ searchInput, setSearchInput }) {
   };
 
   return (
-    <div className=" bg-smoothgray flex flex-col relative p-5 rounded-md">
-      <div className="flex justify-center items-center gap-20">
+    <div className=" bg-smoothgray flex flex-col relative pt-5 lg:p-2 rounded-md">
+      <div className="grid grid-cols-2 md:flex justify-center items-center lg:gap-10">
         {toolBarList.map((el) => {
           return (
             <ToolBarCheckBox
@@ -44,13 +44,13 @@ export default function AdminSearchToolBar({ searchInput, setSearchInput }) {
           e.preventDefault();
           searchUser(searchInput);
         }}
-        className="px-48 py-5 flex flex-col gap-5"
+        className=" md:px-10 lg:px-48 py-5 flex flex-col gap-5"
       >
         {toolBarList.map((el) => {
           if (el.isOn) {
             return (
-              <div className="flex gap-9 " key={el.id}>
-                <div className="w-72 flex justify-center items-center bg-white rounded-md">
+              <div className="flex -9 " key={el.id}>
+                <div className="font-semibold w-72 flex justify-center items-center bg-white rounded-md">
                   {el.filterName}
                 </div>
                 <InputBar

@@ -7,7 +7,7 @@ export const AdminContext = createContext();
 
 export default function AdminContextProvider({ children }) {
   const [toolBarList, setToolBar] = useState([
-    { id: 1, data: "userId", filterName: "User ID", isOn: false },
+    { id: 1, data: "userId", filterName: "User ID", isOn: true },
     { id: 2, data: "firstName", filterName: "First name", isOn: false },
     { id: 3, data: "lastName", filterName: "Last name", isOn: false },
     { id: 4, data: "username", filterName: "Username", isOn: false },

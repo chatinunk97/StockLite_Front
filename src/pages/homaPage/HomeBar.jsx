@@ -12,8 +12,8 @@ const menuList = [
   { id: 3, link: "/admin", text: "User Manager" },
 ];
 
-export default function HomeBar({ LoginUser }) {
-  const { userRole } = LoginUser;
+export default function HomeBar({ LoginUser, logOutFunction }) {
+  const { userRole, firstName, lastName } = LoginUser;
   const [isOpen, setIsOpen] = useState(false);
   const dropDownEl = useRef(null);
   useEffect(() => {
@@ -32,7 +32,11 @@ export default function HomeBar({ LoginUser }) {
     <div className="flex justify-between items-center">
       <div className="flex justify-center items-center h-full hover:bg-blue-300 px-2">
         <Link to={"/"}>
-          <img src={logo} alt="stockLiteLogo" className="w-60 md:w-80 lg:w-56" />
+          <img
+            src={logo}
+            alt="stockLiteLogo"
+            className="w-60 md:w-80 lg:w-56"
+          />
         </Link>
       </div>
       <div className="hidden  md:grid md:grid-cols-2 gap-3 lg:flex w-full md:p-5 lg:p-0 lg:gap-0 lg:h-full">
@@ -86,42 +90,54 @@ export default function HomeBar({ LoginUser }) {
         />
         <div>
           <Dropdown
-            header={"Menu"}
+            header={firstName + " " + lastName}
             isOpen={isOpen}
-            content={menuList.map((el) => {
-              switch (el.link) {
-                case "/pos":
-                  return (
-                    <MenuButton
-                      key={el.id}
-                      text={el.text}
-                      link={el.link}
-                    ></MenuButton>
-                  );
-                case "/wms":
-                  if (userRole === "admin" || userRole === "supervisor") {
-                    return (
-                      <MenuButton
-                        key={el.id}
-                        text={el.text}
-                        link={el.link}
-                      ></MenuButton>
-                    );
-                  }
-                  break;
-                case "/admin":
-                  if (userRole === "admin") {
-                    return (
-                      <MenuButton
-                        key={el.id}
-                        text={el.text}
-                        link={el.link}
-                      ></MenuButton>
-                    );
-                  }
-                  break;
-              }
-            })}
+            content={
+              <div className="flex flex-col gap-5">
+                <div className="flex flex-col gap-2">
+                  {menuList.map((el) => {
+                    switch (el.link) {
+                      case "/pos":
+                        return (
+                          <MenuButton
+                            key={el.id}
+                            text={el.text}
+                            link={el.link}
+                          ></MenuButton>
+                        );
+                      case "/wms":
+                        if (userRole === "admin" || userRole === "supervisor") {
+                          return (
+                            <MenuButton
+                              key={el.id}
+                              text={el.text}
+                              link={el.link}
+                            ></MenuButton>
+                          );
+                        }
+                        break;
+                      case "/admin":
+                        if (userRole === "admin") {
+                          return (
+                            <MenuButton
+                              key={el.id}
+                              text={el.text}
+                              link={el.link}
+                            ></MenuButton>
+                          );
+                        }
+                        break;
+                    }
+                  })}
+                  <div
+                    onClick={logOutFunction}
+                    className="flex flex-col gap-3 font-semibold p-3"
+                  >
+                    Logout
+                  </div>
+                </div>
+              </div>
+            }
           />
         </div>
       </div>

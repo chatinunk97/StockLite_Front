@@ -38,6 +38,7 @@ export default function AuthContextProvider({ children }) {
     });
   };
   const logOutFunction = () => {
+    console.log('wow')
     Alert3Choice(
       "Are you sure you want to Logout?",
       false,

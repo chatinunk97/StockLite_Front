@@ -1,9 +1,21 @@
-import "react-data-grid/lib/styles.css";
-import DataGrid from "react-data-grid";
+import { useState } from "react";
+import { render } from "react-dom";
+import { AgGridReact } from "ag-grid-react";
 
-export default function TestTable({ data, columnFormat }) {
-  const columns = columnFormat;
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
 
-  const rows = data;
-  return <DataGrid columns={columns} rows={rows} className="rdg-light" />;
-}
+const DisplayTable = ({ columnFormat, data , format }) => {
+  //Format determine what Primary key of the data to retrieve when clicked on the row
+  return (
+    <div className="ag-theme-alpine" style={{ height: 400, width: "auto" }}>
+      <AgGridReact
+        onRowClicked={(e) => console.log("row clicked", e.rowIndex,e.data.userId)}
+        rowData={data}
+        columnDefs={columnFormat}
+      ></AgGridReact>
+    </div>
+  );
+};
+
+export default DisplayTable;

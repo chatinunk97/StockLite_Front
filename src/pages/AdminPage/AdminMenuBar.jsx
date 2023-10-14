@@ -4,17 +4,17 @@ import SubMenuButton from "../../components/SubMenuButton";
 
 export default function AdminMenuBar() {
   return (
-    <div className="bg-smoothgray flex r items-center">
+    <div className="bg-smoothgray flex flex-col lg:flex-row  items-center rounded-lg overflow-hidden ">
       <Link
         to={"/admin"}
-        className=" h-full bg-black flex justify-center items-center rounded-lg px-10 lg:py-2 cursor-pointer"
+        className="p-3 w-full lg:w-auto h-full bg-black flex justify-center items-center  px-10 lg:py-2 cursor-pointe "
       >
         <img src={adminIcon} alt="adminIcon" className="w-24" />
         <span className="text-white text-2xl font-semibold">
           User Management
         </span>
       </Link>
-      <div className="flex w-full justify-center gap-10 px-10">
+      <div className="flex w-full justify-center lg:gap-10 lg:px-10">
         <SubMenuButton path={""}>
           <Link to={"/admin"} className="w-full h-full block p-4 ">
             Search User

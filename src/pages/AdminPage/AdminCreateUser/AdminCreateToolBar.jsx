@@ -47,7 +47,7 @@ export default function ToolBar() {
     }
   };
   return (
-    <div className=" bg-smoothgray flex flex-col relative pt-5">
+    <div className=" bg-smoothgray flex flex-col relative  rounded-md">
       <div className="flex justify-center items-center gap-20">
         {/* Filter Box */}
       </div>
