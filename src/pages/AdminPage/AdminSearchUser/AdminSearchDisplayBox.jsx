@@ -2,8 +2,7 @@ import { useAdminContext } from "../../../hooks/admin-hook";
 import DisplayTable from "../../../components/DisplayTable";
 
 export default function AdminSearchDisplayBox() {
-  const { searchUserResult } = useAdminContext();
-
+  const { searchUserResult, setSelectedRow } = useAdminContext();
   const adGridColumnFormat = [
     { field: "userId", resizable: true },
     { field: "username" },
@@ -14,7 +13,12 @@ export default function AdminSearchDisplayBox() {
   ];
   return (
     <div>
-      <DisplayTable data={searchUserResult} columnFormat={adGridColumnFormat} />
+      <DisplayTable
+        data={searchUserResult}
+        columnFormat={adGridColumnFormat}
+        format={"userId"}
+        setSelectedRow={setSelectedRow}
+      />
     </div>
   );
 }

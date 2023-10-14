@@ -30,10 +30,10 @@ export default function AdminCreateToolBarList({ data, setData }) {
     setData(newData);
   };
   return (
-    <div className="grid grid-cols-1 gap-2 p-5">
+    <div className=" md:px-10 lg:px-48 py-5 flex flex-col gap-5">
       {inputBarList.map((el) => {
         return (
-          <div className="flex gap-2" key={el.id}>
+          <div className="flex" key={el.id}>
             <div className="font-semibold w-72 flex justify-center items-center bg-white rounded-md">
               {el.fieldName}
             </div>

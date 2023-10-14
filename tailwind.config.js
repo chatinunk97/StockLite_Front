@@ -6,7 +6,7 @@ export default {
       colors: {
         waterred: "#fb7185",
         waterredHover:"#f43f5e",
-        smoothgray : "#d9d9d9",
+        smoothgray : "#f7f5f5",
         hardgray :"#b3a8a8"
       },
       screens: {

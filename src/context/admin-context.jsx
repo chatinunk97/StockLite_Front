@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import date from "date-and-time";
 import { useEffect } from "react";
+import { AlertNotiSuc } from "../utils/sweetAlert";
 export const AdminContext = createContext();
 
 export default function AdminContextProvider({ children }) {
@@ -16,7 +17,7 @@ export default function AdminContextProvider({ children }) {
     userId: "",
     firstName: "",
     lastName: "",
-    username: ""
+    username: "",
   });
   const [searchUserResult, setSearchUserResult] = useState([]);
   const searchUser = async (input) => {
@@ -51,6 +52,63 @@ export default function AdminContextProvider({ children }) {
     userRole: "employee",
   });
 
+  const [editUserInput, setEditUserInput] = useState({
+    userId: "",
+    username: "",
+    createdAt: "",
+    companyId: "",
+    firstName: "",
+    lastName: "",
+    userRole: "",
+  });
+  const [selectedRow, setSelectedRow] = useState(null);
+  const deleteUserFunction = async (userId) => {
+    try {
+      const result = await axios.delete(`/manage/user?userId=${userId}`);
+      AlertNotiSuc("success", "Delete Successful", result.data.message);
+      setSearchUserResult(
+        searchUserResult.filter((el) => el.userId !== userId)
+      );
+      setEditUserInput({
+        userId: "",
+        username: "",
+        createdAt: "",
+        companyId: "",
+        firstName: "",
+        lastName: "",
+        userRole: "",
+      });
+    } catch (error) {
+      AlertNotiSuc(
+        "error",
+        "Something Went wrong",
+        `${error.response.data.message}`
+      );
+    }
+  };
+  const editUserFunction = async (input) => {
+    try {
+      const result = await axios.put(`/manage/user`, input);
+
+      setEditUserInput({
+        userId: "",
+        username: "",
+        createdAt: "",
+        companyId: "",
+        firstName: "",
+        lastName: "",
+        userRole: "",
+      });
+      await searchUser(searchInput);
+      AlertNotiSuc("success", "Change Saved!", result.data.message);
+    } catch (error) {
+      AlertNotiSuc(
+        "error",
+        "Something Went wrong",
+        `${error.response.data.message}`
+      );
+    }
+  };
   const sharedObj = {
     toolBarList,
     setToolBar,
@@ -60,8 +118,13 @@ export default function AdminContextProvider({ children }) {
     createUserInput,
     setCreateUserInput,
     searchInput,
-    setSearchInput
-
+    setSearchInput,
+    setSelectedRow,
+    selectedRow,
+    editUserInput,
+    setEditUserInput,
+    deleteUserFunction,
+    editUserFunction
   };
   return (
     <AdminContext.Provider value={sharedObj}>{children}</AdminContext.Provider>

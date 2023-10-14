@@ -18,7 +18,7 @@ export default function ToolBar() {
         companyId: LoginUser.companyId,
       };
       const result = await axios.post("manage/user", inputWithCompanyID);
-      console.log(result)
+      console.log(result);
       const newUser = result.data.createUserresult;
       newUser.createdAt = date.transform(
         newUser.createdAt.split("T")[0],
@@ -47,19 +47,16 @@ export default function ToolBar() {
     }
   };
   return (
-    <div className=" bg-smoothgray flex flex-col relative  rounded-md">
-      <div className="flex justify-center items-center gap-20">
-        {/* Filter Box */}
+    <div className="flex flex-col">
+      <div className=" bg-smoothgray flex flex-col relative pt-5 lg:p-2 rounded-md">
+        <AdminCreateToolBarList
+          data={createUserInput}
+          setData={setCreateUserInput}
+        ></AdminCreateToolBarList>
       </div>
-      <AdminCreateToolBarList
-        data={createUserInput}
-        setData={setCreateUserInput}
-      ></AdminCreateToolBarList>
-      <div className=" text-center">
-        <SubmitButton width="w-full" onClick={handleCreateUser}>
-          Create User
-        </SubmitButton>
-      </div>
+      <SubmitButton width="w-full" onClick={handleCreateUser}>
+        Create User
+      </SubmitButton>
     </div>
   );
 }
