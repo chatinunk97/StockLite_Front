@@ -4,6 +4,7 @@ import SubmitButton from "../../components/SubmitButton";
 import axios from "../../config/axios";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 import {
   RegisterAdminSchema,
@@ -56,7 +57,7 @@ export default function RegisterForm() {
         "Register Completed !",
         `Welcome aborad , ${registerInput.username}`,
         "success"
-      );
+      ).then(() => (window.location.href = "/login"));
       setRegisterError({});
     } catch (error) {
       console.log(error);

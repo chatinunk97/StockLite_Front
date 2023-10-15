@@ -18,7 +18,6 @@ export default function ToolBar() {
         companyId: LoginUser.companyId,
       };
       const result = await axios.post("manage/user", inputWithCompanyID);
-      console.log(result);
       const newUser = result.data.createUserresult;
       newUser.createdAt = date.transform(
         newUser.createdAt.split("T")[0],
