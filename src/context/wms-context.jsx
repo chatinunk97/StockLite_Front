@@ -80,7 +80,7 @@ export default function WMSContextProvider({ children }) {
         );
       }
       setSearchSupplierResult(result.data.searchResult);
-    } catch (error)  {
+    } catch (error) {
       AlertNotiSuc(
         "error",
         "Something Went wrong",
@@ -105,9 +105,14 @@ export default function WMSContextProvider({ children }) {
       );
     }
   };
-  const deleteSupplierFunction = async (input)=>{
-    console.log(input)
-  }
+  const deleteSupplierFunction = async (input) => {
+    try {
+      await axios.delete(`/wms/supplier?supplierId=${input}`);
+      setSearchSupplierResult(searchSupplierResult.filter((el) => el.supplierId !== input));
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const shareObj = {
     toolBarList,
     setToolBar,
@@ -124,7 +129,7 @@ export default function WMSContextProvider({ children }) {
     editSupplierInput,
     setEditSupplierInput,
     editSupplierFunction,
-    deleteSupplierFunction
+    deleteSupplierFunction,
   };
 
   return <WMSContext.Provider value={shareObj}>{children}</WMSContext.Provider>;
