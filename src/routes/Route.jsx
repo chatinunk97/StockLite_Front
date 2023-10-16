@@ -9,6 +9,10 @@ import AdminMainPage from "../pages/AdminPage/AdminMainPage";
 import AdminSearchUser from "../pages/AdminPage/AdminSearchUser/AdminSearchUser";
 import AdminCreateUser from "../pages/AdminPage/AdminCreateUser/AdminCreateUser";
 import AdminEditUser from "../pages/AdminPage/AdminEditUSer/AdminEditUser";
+import WMSHomePage from "../pages/WMSPage/WMSHomePage";
+import SupplierMainPage from "../pages/WMSPage/Supplier/SupplierMainPage";
+import SupplierSearch from "../pages/WMSPage/Supplier/SupplierSearch/SupplierSearch";
+import SupplierEdit from "../pages/WMSPage/Supplier/SupplierEdit/SupplierEdit";
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -35,9 +39,22 @@ const router = createBrowserRouter([
         path: "/wms",
         element: (
           <Authenticated authWho={"supervisor"}>
-            <h1>WMS</h1>
+            <WMSHomePage />
           </Authenticated>
         ),
+        children: [
+          {
+            path: "/wms/supplier",
+            element: <SupplierMainPage />,
+            children: [
+              { path: "/wms/supplier/search", element: <SupplierSearch /> },
+              { path: "/wms/supplier/edit", element: <SupplierEdit /> },
+            ],
+          },
+          { path: "/wms/order", element: <h1>ORder Page</h1> },
+          { path: "/wms/stock", element: <h1>Stock</h1> },
+          { path: "/wms/shelf", element: <h1>Shelf</h1> },
+        ],
       },
       {
         path: "/pos",
@@ -51,9 +68,9 @@ const router = createBrowserRouter([
           </Authenticated>
         ),
         children: [
-          { path: "/admin", element: <AdminSearchUser/> },
-          { path: "/admin/create", element: <AdminCreateUser/> },
-          { path: "/admin/edit", element: <AdminEditUser/> },
+          { path: "/admin/search", element: <AdminSearchUser /> },
+          { path: "/admin/create", element: <AdminCreateUser /> },
+          { path: "/admin/edit", element: <AdminEditUser /> },
         ],
       },
     ],
