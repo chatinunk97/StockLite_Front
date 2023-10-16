@@ -5,8 +5,8 @@ function App() {
   const { isLoading } = useAuthContext();
   if (isLoading) {
     return (
-      <div className=" flex justify-center items-center h-screen flex-col gap-0">
-        <img src={loadingKanon} alt="loadingGif" className=""></img>
+      <div className=" flex justify-center items-center h-screen flex-col gap-0 object-fill">
+        <img src={loadingKanon} alt="loadingGif" className="rounded-full"></img>
         <div className=" flex  gap-2">
           <span className="text-semantic-textPrimary ">Loading ...</span>
           <span className="loading loading-dots loading-xs text-secondary-main"></span>

@@ -48,17 +48,21 @@ export default function WMSContextProvider({ children }) {
   const createSupplierFunction = async () => {
     try {
       const result = await axios.post("/wms/supplier", createSupplierInput);
-      console.log(result.data.createResult);
-      setSearchSupplierResult([
-        result.data.createResult,
-        ...searchSupplierResult,
-      ]);
+      const newSupplier = result.data.createResult;
+
+      newSupplier.createdAt = date.transform(
+        newSupplier.createdAt.split("T")[0],
+        "YYYY-MM-DD",
+        "DD MMM YYYY"
+      );
+      setSearchSupplierResult([newSupplier, ...searchSupplierResult]);
       AlertNotiSuc(
         "success",
         "New Supplier Created",
         `Supplier name : "${createSupplierInput.supplierName}" created`
       );
     } catch (error) {
+      console.log(error);
       AlertNotiSuc(
         "error",
         "Something Went wrong",
@@ -90,8 +94,8 @@ export default function WMSContextProvider({ children }) {
   };
   const editSupplierFunction = async (input) => {
     try {
-      console.log(input);
       const result = await axios.put("/wms/supplier", input);
+      searchSupplier(searchInput);
       AlertNotiSuc(
         "success",
         "Change saved",
@@ -105,10 +109,10 @@ export default function WMSContextProvider({ children }) {
       );
     }
   };
-  const deleteSupplierFunction = async (input) => {
+  const deleteSupplierFunction = async (supplierId) => {
     try {
-      await axios.delete(`/wms/supplier?supplierId=${input}`);
-      setSearchSupplierResult(searchSupplierResult.filter((el) => el.supplierId !== input));
+      await axios.delete(`/wms/supplier?supplierId=${supplierId}`);
+      searchSupplier(searchInput).catch((error) => console.log(error));
     } catch (error) {
       console.log(error);
     }

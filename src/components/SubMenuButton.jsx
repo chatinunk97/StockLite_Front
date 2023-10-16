@@ -8,7 +8,7 @@ export default function SubMenuButton({ children, path }) {
     <button
       className={`${
         pathMatch ? `bg-black` : `bg-hardgray`
-      }  lg:rounded-lg text-2xl text-white w-full hover:bg-black font-semibold `}
+      }  lg:rounded-lg text-2xl text-white w-full hover:bg-black font-semibold  `}
     >
       {children}
     </button>

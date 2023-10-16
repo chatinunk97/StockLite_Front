@@ -1,4 +1,3 @@
-import useWMSContext from "../../hooks/wms-hook";
 import SubMenuButton from "../../components/SubMenuButton";
 import { Link } from "react-router-dom";
 import wmsIcon from "../../assets/WMSPage/wmsMenuIcon.png";
@@ -7,7 +6,7 @@ export default function WMSMainBar() {
     <div className="bg-smoothgray flex flex-col lg:flex-row  items-center rounded-lg overflow-hidden ">
       <Link
         to={"/wms"}
-        className="p-3 w-full lg:w-auto h-full bg-black flex gap-3 justify-center items-center  px-10 lg:py-2 cursor-pointe "
+        className="p-3 w-full lg:w-auto h-full bg-black flex gap-3 justify-center items-center  px-10 lg:py-2 cursor-pointer "
       >
         <img src={wmsIcon} alt="wmsIcon" className="w-24" />
         <span className="text-white text-2xl font-semibold">
