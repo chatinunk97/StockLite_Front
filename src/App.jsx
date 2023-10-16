@@ -1,12 +1,20 @@
 import Route from "./routes/Route";
 import { useAuthContext } from "./hooks/auth-hook";
+import loadingKanon from './assets/loadingKanon.gif'
 function App() {
   const { isLoading } = useAuthContext();
-  if(isLoading){
-    return <h1>LOADING DAAAAAAA</h1>
-  }
-  else{
-    return <Route></Route>
+  if (isLoading) {
+    return (
+      <div className=" flex justify-center items-center h-screen flex-col gap-0">
+        <img src={loadingKanon} alt="loadingGif" className=""></img>
+        <div className=" flex  gap-2">
+          <span className="text-semantic-textPrimary ">Loading ...</span>
+          <span className="loading loading-dots loading-xs text-secondary-main"></span>
+        </div>
+      </div>
+    );
+  } else {
+    return <Route></Route>;
   }
 }
 

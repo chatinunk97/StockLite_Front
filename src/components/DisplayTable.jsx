@@ -21,7 +21,7 @@ const DisplayTable = ({ columnFormat, data, format, setSelectedRow }) => {
   return (
     <div className="ag-theme-alpine" style={{ height: 400, width: "auto" }}>
       <AgGridReact
-        onRowClicked={(e) => setSelectedRow(e.data[format])}
+        onRowClicked={(e) => setSelectedRow ? setSelectedRow(e.data[format]) : ""}
         rowData={data}
         gridOptions={gridOptions}
       ></AgGridReact>

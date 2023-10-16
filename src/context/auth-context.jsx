@@ -21,7 +21,10 @@ export default function AuthContextProvider({ children }) {
         .then((res) => setLoginUser(res.data))
         .catch((error) => console.log(error))
         .finally(() => {
-          setIsLoading(false);
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 1500);
+          
         });
     } else {
       setIsLoading(false);
@@ -38,7 +41,6 @@ export default function AuthContextProvider({ children }) {
     });
   };
   const logOutFunction = () => {
-    console.log('wow')
     Alert3Choice(
       "Are you sure you want to Logout?",
       false,

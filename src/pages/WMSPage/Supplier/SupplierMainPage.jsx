@@ -1,13 +1,22 @@
 import { Outlet } from "react-router-dom";
 import SupplierSubBar from "./SuplierSubBar";
-import SupplierToolBar from "./SupplierToolBar";
-import SupplierDisplayBox from './SupplierDisplayBox'
+import SupplierDisplayBox from "./SupplierDisplayBox";
+import ModalPopup from "../../../components/ModalPopup";
+import { useState } from "react";
+import SupplierEditForm from "./SupplierEdit/SupplierEditForm";
 export default function SupplierMainPage() {
+  const [isModalOpen, setIsOpen] = useState(false);
+
   return (
     <div className="flex flex-col gap-5">
-        <SupplierSubBar/>
+      <div>
+        <ModalPopup title={"Edit Supplier Information"} open={isModalOpen} onClose={() => setIsOpen(false)}>
+          <SupplierEditForm  onClose={setIsOpen} />
+        </ModalPopup>
+      </div>
+      <SupplierSubBar />
       <Outlet />
-      <SupplierDisplayBox></SupplierDisplayBox>
+      <SupplierDisplayBox openModal={setIsOpen}></SupplierDisplayBox>
     </div>
   );
 }

@@ -19,20 +19,6 @@ export default function WMSContextProvider({ children }) {
     { id: 4, data: "supplierTel", filterName: "Supplier Tel", isOn: false },
   ]);
 
-  const searchSupplier = async (input) => {
-    const { supplierId, supplierName, supplierAddress, supplierTel } = input;
-    const result = await axios.get(
-      `/wms/supplier?supplierId=${supplierId}&supplierName=${supplierName}&supplierAddress=${supplierAddress}&supplierTel=${supplierTel}`
-    );
-    for (let supplier of result.data.searchResult) {
-      supplier.createdAt = date.transform(
-        supplier.createdAt.split("T")[0],
-        "YYYY-MM-DD",
-        "DD MMM YYYY"
-      );
-    }
-    setSearchSupplierResult(result.data.searchResult);
-  };
   useEffect(() => {
     searchSupplier(searchInput).catch((error) => console.log(error));
   }, []);
@@ -47,6 +33,17 @@ export default function WMSContextProvider({ children }) {
     supplierName: "",
     supplierAddress: "",
     supplierTel: "",
+  });
+  const [selectedSupplier, setSelectedSupplier] = useState({});
+
+  const [editSupplierInput, setEditSupplierInput] = useState({
+    supplierId: "",
+    supplierName: "",
+    supplierAddress: "",
+    supplierTel: "",
+    createdAt: "",
+    updatedAt: "",
+    companyId: "",
   });
   const createSupplierFunction = async () => {
     try {
@@ -69,7 +66,48 @@ export default function WMSContextProvider({ children }) {
       );
     }
   };
-
+  const searchSupplier = async (input) => {
+    try {
+      const { supplierId, supplierName, supplierAddress, supplierTel } = input;
+      const result = await axios.get(
+        `/wms/supplier?supplierId=${supplierId}&supplierName=${supplierName}&supplierAddress=${supplierAddress}&supplierTel=${supplierTel}`
+      );
+      for (let supplier of result.data.searchResult) {
+        supplier.createdAt = date.transform(
+          supplier.createdAt.split("T")[0],
+          "YYYY-MM-DD",
+          "DD MMM YYYY"
+        );
+      }
+      setSearchSupplierResult(result.data.searchResult);
+    } catch (error)  {
+      AlertNotiSuc(
+        "error",
+        "Something Went wrong",
+        `${error.response?.data.message}`
+      );
+    }
+  };
+  const editSupplierFunction = async (input) => {
+    try {
+      console.log(input);
+      const result = await axios.put("/wms/supplier", input);
+      AlertNotiSuc(
+        "success",
+        "Change saved",
+        `Supplier name "${result.data.data.supplierName}"'s data has been changed`
+      );
+    } catch (error) {
+      AlertNotiSuc(
+        "error",
+        "Something Went wrong",
+        `${error.response?.data.message}`
+      );
+    }
+  };
+  const deleteSupplierFunction = async (input)=>{
+    console.log(input)
+  }
   const shareObj = {
     toolBarList,
     setToolBar,
@@ -81,6 +119,12 @@ export default function WMSContextProvider({ children }) {
     setSearchSupplierResult,
     searchSupplier,
     createSupplierFunction,
+    selectedSupplier,
+    setSelectedSupplier,
+    editSupplierInput,
+    setEditSupplierInput,
+    editSupplierFunction,
+    deleteSupplierFunction
   };
 
   return <WMSContext.Provider value={shareObj}>{children}</WMSContext.Provider>;

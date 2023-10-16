@@ -11,15 +11,18 @@ export const Alert3Choice = (
   title = "title",
   isShowCancel = false,
   confirmText = "Confirm",
-  denyText = "Cancel"
+  denyText =  "Cancel",
+  bodyText = ""
 ) => {
   return Swal.fire({
     heightAuto: false,
     title,
+    text : bodyText,
     showDenyButton: true,
     showCancelButton: isShowCancel,
     confirmButtonText: confirmText,
     denyButtonText: denyText,
+
   });
 };
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { BACKEND_URL } from "./env";
-import { getAccessToken } from "../utils/token-storage";
+import { getAccessToken,removeAccesToken } from "../utils/token-storage";
 
 axios.defaults.baseURL = BACKEND_URL;
 
@@ -17,6 +17,10 @@ axios.interceptors.response.use(
     return response;
   },
   (error) => {
+    if (error.response.status === 401) {
+      removeAccesToken();
+      window.location.href = "/login";
+    }
     return Promise.reject(error);
   }
 );
