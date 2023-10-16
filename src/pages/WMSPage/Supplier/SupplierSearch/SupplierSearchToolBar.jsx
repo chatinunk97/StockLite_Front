@@ -2,8 +2,14 @@ import useWMSContext from "../../../../hooks/wms-hook";
 import InputBar from "../../../../components/InputBar";
 import ToolBarCheckBox from "../../../../components/ToolBarCheckBox";
 export default function SupplierSearchToolBar() {
-  const { toolBarList, setToolBar, searchUser, setSearchInput, searchInput } =
-    useWMSContext();
+  const {
+    toolBarList,
+    setToolBar,
+    searchUser,
+    setSearchInput,
+    searchInput,
+    searchSupplier,
+  } = useWMSContext();
   const handleCheckBoxChange = (e) => {
     const findIndex = toolBarList.findIndex((el) => {
       if (el.data === e.target.id) {
@@ -38,7 +44,7 @@ export default function SupplierSearchToolBar() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          searchUser(searchInput);
+          searchSupplier(searchInput);
         }}
         className=" md:px-10 lg:px-48 py-5 flex flex-col gap-5"
       >

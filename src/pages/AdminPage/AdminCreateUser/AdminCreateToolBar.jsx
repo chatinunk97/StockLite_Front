@@ -7,7 +7,6 @@ import date from "date-and-time";
 import { AlertNotiSuc } from "../../../utils/sweetAlert";
 
 export default function ToolBar() {
-  // const { toolBarList, setToolBar } = useAdminContext();
   const { createUserInput, setCreateUserInput, setSearchUserResult } =
     useAdminContext();
   const { LoginUser } = useAuthContext();

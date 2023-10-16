@@ -3,7 +3,6 @@ import SubMenuButton from "../../components/SubMenuButton";
 import { Link } from "react-router-dom";
 import wmsIcon from "../../assets/WMSPage/wmsMenuIcon.png";
 export default function WMSMainBar() {
-  console.log(useWMSContext());
   return (
     <div className="bg-smoothgray flex flex-col lg:flex-row  items-center rounded-lg overflow-hidden ">
       <Link

@@ -11,6 +11,7 @@ const DisplayTable = ({ columnFormat, data, format, setSelectedRow }) => {
   const gridOptions = {
     defaultColDef: {
       resizable: true,
+      flex : 1
       
     },
     columnDefs: columnFormat,
