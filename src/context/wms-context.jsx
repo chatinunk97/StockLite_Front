@@ -94,7 +94,7 @@ export default function WMSContextProvider({ children }) {
   };
   const editSupplierFunction = async (input) => {
     try {
-      const result = await axios.put("/wms/supplier", input);
+      const result = await axios.patch("/wms/supplier", input);
       searchSupplier(searchInput);
       AlertNotiSuc(
         "success",

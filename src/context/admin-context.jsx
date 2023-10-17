@@ -88,7 +88,7 @@ export default function AdminContextProvider({ children }) {
   };
   const editUserFunction = async (input) => {
     try {
-      const result = await axios.put(`/manage/user`, input);
+      const result = await axios.patch(`/manage/user`, input);
 
       setEditUserInput({
         userId: "",

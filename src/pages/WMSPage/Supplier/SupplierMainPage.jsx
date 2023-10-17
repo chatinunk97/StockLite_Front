@@ -4,8 +4,6 @@ import SupplierDisplayBox from "./SupplierDisplayBox";
 import ModalPopup from "../../../components/ModalPopup";
 import { useState } from "react";
 import SupplierEditForm from "./SupplierEdit/SupplierEditForm";
-import { useEffect } from "react";
-import { useRef } from "react";
 export default function SupplierMainPage() {
   const [isModalOpen, setIsOpen] = useState(false);
 

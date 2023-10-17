@@ -5,10 +5,8 @@ export default function Modal({ title, children, open, onClose, setIsOpen }) {
   const modalEl = useRef(null);
 
   useEffect(() => {
-    console.log('useEffect ran!!!!')
     const handleClickOutside = (event) => {
       if (!modalEl.current?.contains(event.target)) {
-        console.log("here");
         setIsOpen(false);
       }
     };
@@ -17,7 +15,6 @@ export default function Modal({ title, children, open, onClose, setIsOpen }) {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
-  console.log('Component ############')
   return (
     <>
       <>
