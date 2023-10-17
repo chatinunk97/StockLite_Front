@@ -2,7 +2,8 @@ import DisplayTable from "../../../components/DisplayTable";
 import useWMSContext from "../../../hooks/wms-hook";
 import { Alert3Choice } from "../../../utils/sweetAlert";
 export default function SupplierDisplayBox({ openModal }) {
-  const { searchSupplierResult, setSelectedSupplier , deleteSupplierFunction } = useWMSContext();
+  const { searchSupplierResult, setSelectedSupplier, deleteSupplierFunction } =
+    useWMSContext();
   const adGridColumnFormat = [
     { field: "supplierId", headerName: "ID" },
     { field: "supplierName", headerName: "Supplier name" },
@@ -16,7 +17,7 @@ export default function SupplierDisplayBox({ openModal }) {
         <div className="flex gap-2">
           <button
             onClick={(e) => {
-              e.stopPropagation()
+              e.stopPropagation();
               setSelectedSupplier(params.data);
               openModal(true);
             }}
@@ -34,7 +35,7 @@ export default function SupplierDisplayBox({ openModal }) {
                 `Are you sure you want to delete Supplier : ${params.data.supplierName}`
               ).then((res) => {
                 if (res.value) {
-                  deleteSupplierFunction(params.data.supplierId)
+                  deleteSupplierFunction(params.data.supplierId);
                 }
               });
             }}
@@ -47,8 +48,7 @@ export default function SupplierDisplayBox({ openModal }) {
     },
   ];
   return (
-    <div>
-      SupplierDisplayBox
+    <div className="relative">
       <DisplayTable
         data={searchSupplierResult}
         columnFormat={adGridColumnFormat}

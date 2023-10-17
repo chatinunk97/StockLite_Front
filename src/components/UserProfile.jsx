@@ -41,7 +41,7 @@ export default function UserProfile({ LoginUser }) {
         content={
           <div
             onClick={logOutFunction}
-            className="hover:bg-gray-200 px-3 py-3 rounded-lg"
+            className="hover:bg-gray-200 px-3 py-3 rounded-lg cursor-pointer"
           >
             Logout
           </div>

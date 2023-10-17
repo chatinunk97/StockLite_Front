@@ -19,9 +19,7 @@ export default function WMSContextProvider({ children }) {
     { id: 4, data: "supplierTel", filterName: "Supplier Tel", isOn: false },
   ]);
 
-  useEffect(() => {
-    searchSupplier(searchInput).catch((error) => console.log(error));
-  }, []);
+  //Supplier
   const [searchInput, setSearchInput] = useState({
     supplierId: "",
     supplierName: "",
@@ -114,9 +112,20 @@ export default function WMSContextProvider({ children }) {
       await axios.delete(`/wms/supplier?supplierId=${supplierId}`);
       searchSupplier(searchInput).catch((error) => console.log(error));
     } catch (error) {
-      console.log(error);
+      AlertNotiSuc(
+        "error",
+        "Something Went wrong",
+        `${error.response?.data.message}`
+      );
     }
   };
+
+  //Order
+  const [searchOrderResult, setSearchOrderResult] = useState([]);
+
+  useEffect(() => {
+    searchSupplier(searchInput).catch((error) => console.log(error));
+  }, []);
   const shareObj = {
     toolBarList,
     setToolBar,
