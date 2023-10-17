@@ -15,7 +15,8 @@ export default function SupplierDisplayBox({ openModal }) {
       cellRenderer: (params) => (
         <div className="flex gap-2">
           <button
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation()
               setSelectedSupplier(params.data);
               openModal(true);
             }}
