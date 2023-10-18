@@ -183,7 +183,9 @@ export default function WMSContextProvider({ children }) {
           );
         }
         setSearchOrderResult(modifiedResponses);
+        return;
       }
+      setSearchOrderResult([])
     } catch (error) {
       console.log(error);
       AlertNotiSuc(
@@ -196,7 +198,7 @@ export default function WMSContextProvider({ children }) {
 
   useEffect(() => {
     searchSupplier(searchInput).catch((error) => console.log(error));
-    searchOrderFunction(searchOrderInput).catch((error)=>console.log(error))
+    searchOrderFunction(searchOrderInput).catch((error) => console.log(error));
   }, []);
   const shareObj = {
     toolBarList,
