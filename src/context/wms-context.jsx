@@ -185,9 +185,25 @@ export default function WMSContextProvider({ children }) {
         setSearchOrderResult(modifiedResponses);
         return;
       }
-      setSearchOrderResult([])
+      setSearchOrderResult([]);
     } catch (error) {
       console.log(error);
+      AlertNotiSuc(
+        "error",
+        "Something Went wrong",
+        `${error.response?.data.message}`
+      );
+    }
+  };
+  const [selectedOrder, setSelectedOrder] = useState({});
+  const deleteOrderFunction = async (input) => {
+    try {
+      const deletedOrder = await axios.delete(`/wms/order?orderId=${input}`);
+      const deletedOrderInstance = deletedOrder.data.deletedOrder;
+      setSearchOrderResult((prev) => {
+        return prev.filter((el)=>el.orderId !== deletedOrderInstance.orderId)
+      });
+    } catch (error) {
       AlertNotiSuc(
         "error",
         "Something Went wrong",
@@ -223,6 +239,7 @@ export default function WMSContextProvider({ children }) {
     setSearchOrderInput,
     searchOrderFunction,
     searchOrderResult,
+    deleteOrderFunction,
   };
 
   return <WMSContext.Provider value={shareObj}>{children}</WMSContext.Provider>;

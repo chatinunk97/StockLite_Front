@@ -14,7 +14,7 @@ export default function ToolBarCheckBox({ children, data, onChange, value }) {
       />
       <label
         htmlFor={data}
-        className="w-full ml-2 md:text-2xl font-semibold text-gray-900"
+        className="w-full ml-2 lg:text-2xl font-semibold text-gray-900"
       >
         {children}
       </label>

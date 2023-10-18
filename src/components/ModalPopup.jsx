@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useRef } from "react";
 
-export default function Modal({ title, children, open, onClose, setIsOpen }) {
+export default function Modal({ title, children,  onClose, setIsOpen }) {
   const modalEl = useRef(null);
 
   useEffect(() => {
