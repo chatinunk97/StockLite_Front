@@ -7,6 +7,7 @@ import { AlertNotiSuc } from "../utils/sweetAlert";
 export const WMSContext = createContext();
 
 export default function WMSContextProvider({ children }) {
+  //Supplier
   const [toolBarList, setToolBar] = useState([
     { id: 1, data: "supplierId", filterName: "Supplier ID", isOn: false },
     { id: 2, data: "supplierName", filterName: "Supplier name", isOn: true },
@@ -18,8 +19,6 @@ export default function WMSContextProvider({ children }) {
     },
     { id: 4, data: "supplierTel", filterName: "Supplier Tel", isOn: false },
   ]);
-
-  //Supplier
   const [searchInput, setSearchInput] = useState({
     supplierId: "",
     supplierName: "",
@@ -60,7 +59,6 @@ export default function WMSContextProvider({ children }) {
         `Supplier name : "${createSupplierInput.supplierName}" created`
       );
     } catch (error) {
-      console.log(error);
       AlertNotiSuc(
         "error",
         "Something Went wrong",
@@ -121,10 +119,84 @@ export default function WMSContextProvider({ children }) {
   };
 
   //Order
+
+  const [orderBar, setOrderBar] = useState([
+    { id: 1, data: "username", filterName: "username", isOn: false },
+    { id: 2, data: "orderId", filterName: "Order ID", isOn: true },
+    {
+      id: 3,
+      data: "supplierId",
+      filterName: "Supplier ID",
+      isOn: false,
+    },
+    { id: 4, data: "sumPrice", filterName: "Total Expense", isOn: false },
+    {
+      id: 5,
+      data: "startDate",
+      filterName: "Date From",
+      isOn: false,
+      type: "date",
+    },
+    {
+      id: 6,
+      data: "endDate",
+      filterName: "Date Until",
+      isOn: false,
+      type: "date",
+    },
+  ]);
+  const [searchOrderInput, setSearchOrderInput] = useState({
+    username: "",
+    orderId: "",
+    supplierId: "",
+    sumPrice: "",
+    startDate: "",
+    endDate: "",
+  });
   const [searchOrderResult, setSearchOrderResult] = useState([]);
+  const searchOrderFunction = async (input) => {
+    try {
+      const { username, orderId, supplierId, sumPrice, startDate, endDate } =
+        input;
+      const result = await axios.get(
+        `/wms/order?username=${username}&orderId=${orderId}&supplierId=${supplierId}&sumPrice=${sumPrice}&startDate=${startDate}&endDate=${endDate}`
+      );
+      if (result.data.searchResult.length) {
+        const rawData = result.data.searchResult;
+        //Map the data since the response is a nested Object
+        const modifiedResponses = rawData.map((apiResponse) => ({
+          orderId: apiResponse.orderId,
+          receiveDate: apiResponse.receiveDate,
+          sumPrice: apiResponse.sumPrice,
+          userId: apiResponse.userId,
+          supplierId: apiResponse.Supplier.supplierId,
+          supplierName: apiResponse.Supplier.supplierName,
+          createdAt: apiResponse.createdAt,
+          updatedAt: apiResponse.updatedAt,
+          username: apiResponse.User.username,
+        }));
+        for (let order of modifiedResponses) {
+          order.receiveDate = date.transform(
+            order.receiveDate.split("T")[0],
+            "YYYY-MM-DD",
+            "DD MMM YYYY"
+          );
+        }
+        setSearchOrderResult(modifiedResponses);
+      }
+    } catch (error) {
+      console.log(error);
+      AlertNotiSuc(
+        "error",
+        "Something Went wrong",
+        `${error.response?.data.message}`
+      );
+    }
+  };
 
   useEffect(() => {
     searchSupplier(searchInput).catch((error) => console.log(error));
+    searchOrderFunction(searchOrderInput).catch((error)=>console.log(error))
   }, []);
   const shareObj = {
     toolBarList,
@@ -143,6 +215,12 @@ export default function WMSContextProvider({ children }) {
     setEditSupplierInput,
     editSupplierFunction,
     deleteSupplierFunction,
+    orderBar,
+    setOrderBar,
+    searchOrderInput,
+    setSearchOrderInput,
+    searchOrderFunction,
+    searchOrderResult,
   };
 
   return <WMSContext.Provider value={shareObj}>{children}</WMSContext.Provider>;

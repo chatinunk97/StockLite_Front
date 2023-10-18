@@ -2,15 +2,15 @@ import { useEffect } from "react";
 import useWMSContext from "../../../hooks/wms-hook";
 import DisplayTable from "../../../components/DisplayTable";
 export default function OrderDisplayBox() {
-  const { searchSupplier, searchSupplierResult } = useWMSContext();
+  const { searchSupplier, searchSupplierResult,searchOrderResult } = useWMSContext();
   useEffect(() => {
     searchSupplier({
       supplierId: "",
       supplierName: "",
       supplierAddress: "",
       supplierTel: "",
-    }).then(() => {
-      console.log(searchSupplierResult);
+    }).catch((error) => {
+      console.log(error)
     });
   }, []);
 
@@ -22,20 +22,11 @@ export default function OrderDisplayBox() {
     { field: "sumPrice", headerName: "Total expense" },
   ];
 
-  const mockOrderData = [
-    {
-      orderId: "OrderID#",
-      receiveDate: "DATEE",
-      username: "USER NAMEE",
-      sumPrice: 12222,
-      supplierName : "7-11"
-    },
-  ];
   return (
     <div>
       OrderDisplayBox
       <DisplayTable
-        data={mockOrderData}
+        data={searchOrderResult}
         columnFormat={adGridColumnFormat}
       ></DisplayTable>
     </div>

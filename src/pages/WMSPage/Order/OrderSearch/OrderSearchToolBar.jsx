@@ -1,34 +1,34 @@
 import useWMSContext from "../../../../hooks/wms-hook";
-import InputBar from "../../../../components/InputBar";
 import ToolBarCheckBox from "../../../../components/ToolBarCheckBox";
-export default function SupplierSearchToolBar() {
+import InputBar from "../../../../components/InputBar";
+import SubmitButton from "../../../../components/SubmitButton";
+export default function OrderSearchToolBar() {
   const {
-    toolBarList,
-    setToolBar,
-    setSearchInput,
-    searchInput,
-    searchSupplier,
+    orderBar,
+    setOrderBar,
+    setSearchOrderInput,
+    searchOrderInput,
+    searchOrderFunction,
   } = useWMSContext();
-  
   const handleCheckBoxChange = (e) => {
-    const findIndex = toolBarList.findIndex((el) => {
+    const findIndex = orderBar.findIndex((el) => {
       if (el.data === e.target.id) {
-        setSearchInput({ ...searchInput, [el.data]: "" });
+        setSearchOrderInput({ ...searchOrderInput, [el.data]: "" });
         return el;
       }
     });
-    const newToolBarList = [...toolBarList];
-    newToolBarList[findIndex].isOn = e.target.checked;
-    setToolBar(newToolBarList);
+    const neworderBar = [...orderBar];
+    neworderBar[findIndex].isOn = e.target.checked;
+    setOrderBar(neworderBar);
   };
 
   const handleInputChange = (event, field) => {
-    setSearchInput({ ...searchInput, [field]: event.target.value });
+    setSearchOrderInput({ ...searchOrderInput, [field]: event.target.value });
   };
   return (
     <div>
       <div className="grid grid-cols-2 md:flex justify-center items-center lg:gap-10">
-        {toolBarList.map((el) => {
+        {orderBar.map((el) => {
           return (
             <ToolBarCheckBox
               value={el.isOn}
@@ -44,11 +44,11 @@ export default function SupplierSearchToolBar() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          searchSupplier(searchInput);
+          searchOrderFunction(searchOrderInput);
         }}
         className=" md:px-10 lg:px-48 py-5 flex flex-col gap-5"
       >
-        {toolBarList.map((el) => {
+        {orderBar.map((el) => {
           if (el.isOn) {
             return (
               <div className="flex" key={el.id}>
@@ -56,15 +56,17 @@ export default function SupplierSearchToolBar() {
                   {el.filterName}
                 </div>
                 <InputBar
-                  value={searchInput[el.data]}
+                  value={searchOrderInput[el.data]}
                   onChange={(event) => {
                     handleInputChange(event, el.data);
                   }}
+                  type={el.type}
                 />
               </div>
             );
           }
         })}
+        <SubmitButton width="w-full">Search</SubmitButton>
       </form>
     </div>
   );
