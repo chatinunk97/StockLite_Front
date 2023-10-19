@@ -1,6 +1,7 @@
 import Route from "./routes/Route";
 import { useAuthContext } from "./hooks/auth-hook";
 import loadingKanon from './assets/loadingKanon.gif'
+
 function App() {
   const { isLoading } = useAuthContext();
   if (isLoading) {
