@@ -109,6 +109,11 @@ export default function WMSContextProvider({ children }) {
     try {
       await axios.delete(`/wms/supplier?supplierId=${supplierId}`);
       searchSupplier(searchInput).catch((error) => console.log(error));
+      AlertNotiSuc(
+        "success",
+        "Supplier Deleted",
+        `Deleted Supplier ID : "${supplierId}"`
+      );
     } catch (error) {
       AlertNotiSuc(
         "error",
@@ -201,8 +206,40 @@ export default function WMSContextProvider({ children }) {
       const deletedOrder = await axios.delete(`/wms/order?orderId=${input}`);
       const deletedOrderInstance = deletedOrder.data.deletedOrder;
       setSearchOrderResult((prev) => {
-        return prev.filter((el)=>el.orderId !== deletedOrderInstance.orderId)
+        return prev.filter((el) => el.orderId !== deletedOrderInstance.orderId);
       });
+      AlertNotiSuc(
+        "success",
+        "Change saved",
+        `Order ID "${deletedOrderInstance.orderId}" deleted`
+      );
+    } catch (error) {
+      AlertNotiSuc(
+        "error",
+        "Something Went wrong",
+        `${error.response?.data.message}`
+      );
+    }
+  };
+  const [createOrderInput, setCreateOrderInput] = useState({
+    supplierId: "",
+    receiveDate: "",
+    sumPrice: "",
+  });
+  const createOrderFunction = async () => {
+    try {
+      const createResult = await axios.post("/wms/order", createOrderInput);
+      setCreateOrderInput({
+        supplierId: "",
+        receiveDate: "",
+        sumPrice: "",
+      });
+      await searchOrderFunction(searchOrderInput);
+      AlertNotiSuc(
+        "success",
+        "New Order Created",
+        `Your order number is : "${createResult.data.createResult.orderId}"`
+      );
     } catch (error) {
       AlertNotiSuc(
         "error",
@@ -212,6 +249,32 @@ export default function WMSContextProvider({ children }) {
     }
   };
 
+  const [editOrderInput, setEditOrderInput] = useState({
+    orderId: "",
+    receiveDate: "",
+    username: "",
+    supplierName: "",
+    sumPrice: "",
+  });
+  const editOrderFunction = async () => {
+    try {
+      console.log(editOrderInput.receiveDate);
+      const result = await axios.patch("/wms/order", editOrderInput);
+      AlertNotiSuc(
+        "success",
+        "Order Info updated",
+        `Updated infor for Order number : "${result.data.editResult.orderId}"`
+      );
+    } catch (error) {
+      AlertNotiSuc(
+        "error",
+        "Something Went wrong",
+        `${error.response?.data.message}`
+      );
+    } finally {
+      searchOrderFunction(searchOrderInput);
+    }
+  };
   useEffect(() => {
     searchSupplier(searchInput).catch((error) => console.log(error));
     searchOrderFunction(searchOrderInput).catch((error) => console.log(error));
@@ -240,6 +303,14 @@ export default function WMSContextProvider({ children }) {
     searchOrderFunction,
     searchOrderResult,
     deleteOrderFunction,
+    createOrderInput,
+    setCreateOrderInput,
+    createOrderFunction,
+    setSelectedOrder,
+    selectedOrder,
+    editOrderInput,
+    setEditOrderInput,
+    editOrderFunction,
   };
 
   return <WMSContext.Provider value={shareObj}>{children}</WMSContext.Provider>;

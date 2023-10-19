@@ -4,34 +4,40 @@ import SubmitButton from "../../../../components/SubmitButton";
 import useWMSContext from "../../../../hooks/wms-hook";
 export default function OrderEditForm({ onClose }) {
   const {
-    editSupplierInput,
-    setEditSupplierInput,
-    selectedSupplier,
-    editSupplierFunction,
+    editOrderInput,
+    setEditOrderInput,
+    selectedOrder,
+    editOrderFunction,
   } = useWMSContext();
   const inputList = [
-    { id: 1, data: "supplierId", filterName: "ID" },
-    { id: 2, data: "supplierName", filterName: "Supplier name" },
-    { id: 3, data: "supplierAddress", filterName: "Supplier Address" },
+    { id: 1, data: "orderId", filterName: "ID", isDisabled: true },
+    { id: 2, data: "receiveDate", filterName: "Receive Date", type: "date" },
+    {
+      id: 3,
+      data: "username",
+      filterName: "Responsible User",
+      isDisabled: true,
+    },
     {
       id: 4,
-      data: "supplierTel",
-      filterName: "Supplier Tel",
+      data: "supplierName",
+      filterName: "Supplier Name",
+      isDisabled: true,
     },
+    { id: 5, data: "sumPrice", filterName: "Total Expense" },
   ];
-  useEffect(() => {
-    setEditSupplierInput(selectedSupplier);
-  }, []);
   const handleInputChange = async (event, field) => {
-    await setEditSupplierInput({
-      ...editSupplierInput,
+    setEditOrderInput({
+      ...editOrderInput,
       [field]: event.target.value,
     });
   };
+  useEffect(()=>{setEditOrderInput(selectedOrder)},[])
 
   const handleEditSubmit = async (event) => {
     event.preventDefault();
-    await editSupplierFunction(editSupplierInput)
+    editOrderFunction()
+    // await editSupplierFunction(editSupplierInput);
     onClose(false);
   };
   return (
@@ -48,8 +54,9 @@ export default function OrderEditForm({ onClose }) {
                   {el.filterName}
                 </div>
                 <InputBar
-                  isDisabled={el.data === "supplierId" ? true : false}
-                  value={editSupplierInput[el.data]}
+                  type={el.type}
+                  isDisabled={el.isDisabled}
+                  value={editOrderInput[el.data]}
                   onChange={(event) => {
                     handleInputChange(event, el.data);
                   }}

@@ -22,7 +22,7 @@ export default function OrderMainPage() {
             onClose={() => setIsOpen(false)}
           >
 
-          <OrderEditForm/>
+          <OrderEditForm onClose={setIsOpen}/>
           </ModalPopup>
         )}
       </div>

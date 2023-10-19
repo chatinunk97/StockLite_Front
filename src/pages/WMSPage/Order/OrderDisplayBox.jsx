@@ -5,10 +5,9 @@ import { Alert3Choice } from "../../../utils/sweetAlert";
 export default function OrderDisplayBox({ openModal }) {
   const {
     searchSupplier,
-    searchSupplierResult,
     searchOrderResult,
+    deleteOrderFunction,
     setSelectedOrder,
-    deleteOrderFunction
   } = useWMSContext();
   useEffect(() => {
     searchSupplier({
@@ -52,7 +51,7 @@ export default function OrderDisplayBox({ openModal }) {
                 `Are you sure you want to delete Order Id : ${params.data.orderId}`
               ).then((res) => {
                 if (res.value) {
-                  deleteOrderFunction(params.data.orderId)
+                  deleteOrderFunction(params.data.orderId);
                 }
               });
             }}
@@ -67,7 +66,6 @@ export default function OrderDisplayBox({ openModal }) {
 
   return (
     <div>
-      OrderDisplayBox
       <DisplayTable
         data={searchOrderResult}
         columnFormat={adGridColumnFormat}

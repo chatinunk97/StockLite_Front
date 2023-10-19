@@ -15,6 +15,7 @@ import SupplierSearch from "../pages/WMSPage/Supplier/SupplierSearch/SupplierSea
 import SupplierEdit from "../pages/WMSPage/Supplier/SupplierEdit/SupplierEdit";
 import OrderMainPage from "../pages/WMSPage/Order/OrderMainPage";
 import OrderSearch from "../pages/WMSPage/Order/OrderSearch/OrderSearch";
+import OrderEdit from "../pages/WMSPage/Order/OrderEdit/OrderEdit";
 
 export default function Route() {
   const router = createBrowserRouter([
@@ -63,7 +64,7 @@ export default function Route() {
                   path: "/wms/order/search",
                   element: <OrderSearch/>,
                 },
-                { path: "/wms/order/edit", element: <h1>EDIT</h1> },
+                { path: "/wms/order/edit", element: <OrderEdit/> },
               ],
             },
             { path: "/wms/stock", element: <h1>Stock</h1> },
