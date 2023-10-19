@@ -1,8 +1,10 @@
 import useWMSContext from "../../../../hooks/wms-hook";
 import InputBar from "../../../../components/InputBar";
+import SubmitButton from "../../../../components/SubmitButton";
 
 export default function SupplierEditToolBar() {
-  const { createSupplierInput, setCreateSupplierInput } = useWMSContext();
+  const { createSupplierInput, setCreateSupplierInput,createSupplierFunction } = useWMSContext();
+
   const inputList = [
     { id: 1, data: "supplierName", filterName: "Supplier name" },
     { id: 2, data: "supplierAddress", filterName: "Supplier Address" },
@@ -23,6 +25,7 @@ export default function SupplierEditToolBar() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          createSupplierFunction()
         }}
         className=" md:px-10 lg:px-48 py-5 flex flex-col gap-5"
       >
@@ -41,6 +44,7 @@ export default function SupplierEditToolBar() {
             </div>
           );
         })}
+        <SubmitButton width="w-full">Create Supplier</SubmitButton>
       </form>
     </div>
   );

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import useWMSContext from "../../../hooks/wms-hook";
 import DisplayTable from "../../../components/DisplayTable";
 import { Alert3Choice } from "../../../utils/sweetAlert";
-export default function OrderDisplayBox({ openModal }) {
+export default function StockDisplayBox({ openModal }) {
   const {
     searchSupplier,
     searchOrderResult,
@@ -21,11 +21,13 @@ export default function OrderDisplayBox({ openModal }) {
   }, []);
 
   const adGridColumnFormat = [
-    { field: "orderId", headerName: "ID" ,width : 50},
-    { field: "receiveDate", headerName: "Date",flex: 1 },
-    { field: "username", headerName: "Responsible User",flex: 1 },
-    { field: "supplierName", headerName: "Supplier name",flex: 1 },
-    { field: "sumPrice", headerName: "Total expense",flex: 1 },
+    { field: "stockId", headerName: "ID", width: 50 },
+    { field: "productName", headerName: "Product", flex: 1 },
+    { field: "pricePerUnit", headerName: "PPU (THB)", flex: 1 },
+    { field: "stockQuantity", headerName: "Stock", flex: 1 },
+    { field: "expirationDate", headerName: "EXP date", flex: 1 },
+    { field: "orderId", headerName: "Order ID", flex: 1 },
+    { field: "supplierName", headerName: "Supplier", flex: 1 },
     {
       field: "actionButtons",
       headerName: "Action Buttons",
@@ -63,11 +65,21 @@ export default function OrderDisplayBox({ openModal }) {
       ),
     },
   ];
-
+  const mockData = [
+    {
+      stockId: 1,
+      productName: "Lay",
+      pricePerUnit: 25,
+      stockQuantity: 1000,
+      expirationDate: "12 Oct 2023",
+      orderId: 1,
+      supplierName: "7-11",
+    },
+  ];
   return (
     <div>
       <DisplayTable
-        data={searchOrderResult}
+        data={mockData}
         columnFormat={adGridColumnFormat}
       ></DisplayTable>
     </div>

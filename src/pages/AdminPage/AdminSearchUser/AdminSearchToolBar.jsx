@@ -4,8 +4,7 @@ import SubmitButton from "../../../components/SubmitButton";
 import { useAdminContext } from "../../../hooks/admin-hook";
 
 export default function AdminSearchToolBar({ searchInput, setSearchInput }) {
-  const { toolBarList, setToolBar, searchUser } =
-    useAdminContext();
+  const { toolBarList, setToolBar, searchUser } = useAdminContext();
 
   const handleCheckBoxChange = (e) => {
     const findIndex = toolBarList.findIndex((el) => {
@@ -63,17 +62,15 @@ export default function AdminSearchToolBar({ searchInput, setSearchInput }) {
             );
           }
         })}
-      </form>
-      <div className=" text-center">
+
         <SubmitButton
-          width="w-full"
           onClick={() => {
             searchUser(searchInput);
           }}
         >
           Search
         </SubmitButton>
-      </div>
+      </form>
     </div>
   );
 }

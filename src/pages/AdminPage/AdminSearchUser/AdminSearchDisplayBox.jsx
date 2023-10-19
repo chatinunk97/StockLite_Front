@@ -5,11 +5,11 @@ export default function AdminSearchDisplayBox() {
   const { searchUserResult, setSelectedRow } = useAdminContext();
   const adGridColumnFormat = [
     { field: "userId", headerName: "ID" , width : 100},
-    { field: "username", headerName: "Username" },
-    { field: "createdAt", headerName: "Created Date" },
-    { field: "firstName", headerName: "Firstname" },
-    { field: "lastName", headerName: "Lastname" },
-    { field: "userRole", headerName: "User Role" },
+    { field: "username", headerName: "Username",flex : 1 },
+    { field: "createdAt", headerName: "Created Date",flex : 1 },
+    { field: "firstName", headerName: "Firstname" ,flex : 1},
+    { field: "lastName", headerName: "Lastname" ,flex : 1},
+    { field: "userRole", headerName: "User Role",flex : 1 },
    
   ];
   return (

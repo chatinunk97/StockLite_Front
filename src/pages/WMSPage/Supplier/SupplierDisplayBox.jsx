@@ -5,11 +5,11 @@ export default function SupplierDisplayBox({ openModal }) {
   const { searchSupplierResult, setSelectedSupplier, deleteSupplierFunction } =
     useWMSContext();
   const adGridColumnFormat = [
-    { field: "supplierId", headerName: "ID" },
-    { field: "supplierName", headerName: "Supplier name" },
-    { field: "supplierAddress", headerName: "Supplier Address" },
-    { field: "supplierTel", headerName: "Supplier Tel" },
-    { field: "createdAt", headerName: "Created Date" },
+    { field: "supplierId", headerName: "ID", width: 50 },
+    { field: "supplierName", headerName: "Supplier name", flex: 1 },
+    { field: "supplierAddress", headerName: "Supplier Address", flex: 1 },
+    { field: "supplierTel", headerName: "Supplier Tel", flex: 1 },
+    { field: "createdAt", headerName: "Created Date", flex: 1 },
     {
       field: "actionButtons",
       headerName: "Action Buttons",
@@ -21,7 +21,7 @@ export default function SupplierDisplayBox({ openModal }) {
               setSelectedSupplier(params.data);
               openModal(true);
             }}
-            className="bg-green-400 rounded-lg flex justify-center items-center px-2"
+            className="font-bold text-white w-full bg-green-600 rounded-lg flex justify-center items-center px-2"
           >
             Edit
           </button>
@@ -39,7 +39,7 @@ export default function SupplierDisplayBox({ openModal }) {
                 }
               });
             }}
-            className="bg-red-500 rounded-lg flex justify-center items-center px-2"
+            className="font-bold text-white w-full bg-red-500 hover:bg-red-300 hover:text-black rounded-lg flex justify-center items-center px-2"
           >
             Delete
           </button>

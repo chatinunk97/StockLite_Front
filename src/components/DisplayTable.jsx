@@ -5,8 +5,6 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 import ExcelJS from "exceljs";
 
 const DisplayTable = ({ columnFormat, data, format, setSelectedRow }) => {
-  const gridRef = React.createRef();
-
   const exportToExcel = () => {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet("Ag-Grid Data");
@@ -40,14 +38,14 @@ const DisplayTable = ({ columnFormat, data, format, setSelectedRow }) => {
   const gridOptions = {
     defaultColDef: {
       resizable: true,
-      flex: 1,
     },
     columnDefs: columnFormat,
     rowData: data,
+    
   };
   return (
     <div>
-      <div className="bg-red-50 flex justify-end p-2">
+      <div className=" flex justify-end p-2">
         <button
           onClick={exportToExcel}
           className="bg-gradient-to-r from-blue-500 to-green-500 text-white py-3 px-6 rounded-md shadow-md  hover:from-blue-700 hover:to-green-700"

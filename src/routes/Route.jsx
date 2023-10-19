@@ -16,6 +16,7 @@ import SupplierEdit from "../pages/WMSPage/Supplier/SupplierEdit/SupplierEdit";
 import OrderMainPage from "../pages/WMSPage/Order/OrderMainPage";
 import OrderSearch from "../pages/WMSPage/Order/OrderSearch/OrderSearch";
 import OrderEdit from "../pages/WMSPage/Order/OrderEdit/OrderEdit";
+import StockMainPage from "../pages/WMSPage/Stock/StockMainPage";
 
 export default function Route() {
   const router = createBrowserRouter([
@@ -62,12 +63,22 @@ export default function Route() {
               children: [
                 {
                   path: "/wms/order/search",
-                  element: <OrderSearch/>,
+                  element: <OrderSearch />,
                 },
-                { path: "/wms/order/edit", element: <OrderEdit/> },
+                { path: "/wms/order/edit", element: <OrderEdit /> },
               ],
             },
-            { path: "/wms/stock", element: <h1>Stock</h1> },
+            {
+              path: "/wms/stock",
+              element: <StockMainPage />,
+              children: [
+                {
+                  path: "/wms/stock/search",
+                  element: <h1>SEARCHH</h1>,
+                },
+                { path: "/wms/stock/edit", element: <h1>EDITTT</h1> },
+              ],
+            },
             { path: "/wms/shelf", element: <h1>Shelf</h1> },
           ],
         },
@@ -91,6 +102,6 @@ export default function Route() {
       ],
     },
   ]);
-  
+
   return <RouterProvider router={router}></RouterProvider>;
 }

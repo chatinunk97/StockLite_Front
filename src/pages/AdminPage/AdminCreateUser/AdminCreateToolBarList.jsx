@@ -1,8 +1,17 @@
 import React from "react";
 import InputBar from "../../../components/InputBar";
 import OptionComponent from "../../../components/OptionComponent";
+import SubmitButton from "../../../components/SubmitButton";
+import { AlertNotiSuc } from "../../../utils/sweetAlert";
+import { useAdminContext } from "../../../hooks/admin-hook";
+import { useAuthContext } from "../../../hooks/auth-hook";
+import date from "date-and-time";
+import axios from "axios";
 
 export default function AdminCreateToolBarList({ data, setData }) {
+  const { createUserInput, setCreateUserInput, setSearchUserResult } =
+    useAdminContext();
+  const { LoginUser } = useAuthContext();
   const inputBarList = [
     { id: 1, data: "firstName", fieldName: "First name" },
     { id: 2, data: "lastName", fieldName: "Last name" },
@@ -29,8 +38,49 @@ export default function AdminCreateToolBarList({ data, setData }) {
     const newData = { ...data, [field]: event.target.value };
     setData(newData);
   };
+  const handleCreateUser = async () => {
+    try {
+      const inputWithCompanyID = {
+        ...createUserInput,
+        companyId: LoginUser.companyId,
+      };
+      const result = await axios.post("manage/user", inputWithCompanyID);
+      const newUser = result.data.createUserresult;
+      newUser.createdAt = date.transform(
+        newUser.createdAt.split("T")[0],
+        "YYYY-MM-DD",
+        "DD MMM YYYY"
+      );
+
+      setSearchUserResult((prev) => [newUser, ...prev]);
+      setCreateUserInput({
+        firstName: "",
+        lastName: "",
+        username: "",
+        password: "",
+        repeat_password: "",
+        email: "",
+        companyId: "",
+        userRole: "employee",
+      });
+      AlertNotiSuc("success", "New User Created!", "User Created successfully");
+     
+    } catch (error) {
+      AlertNotiSuc(
+        "error",
+        "Something Went wrong",
+        `${error.response.data.message}`
+      );
+    }
+  };
   return (
-    <div className=" md:px-10 lg:px-48 py-5 flex flex-col gap-5">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleCreateUser();
+      }}
+      className=" md:px-10 lg:px-48 py-5 flex flex-col gap-5"
+    >
       {inputBarList.map((el) => {
         return (
           <div className="flex" key={el.id}>
@@ -58,6 +108,7 @@ export default function AdminCreateToolBarList({ data, setData }) {
           </div>
         );
       })}
-    </div>
+      <SubmitButton width="w-full">Create User</SubmitButton>
+    </form>
   );
 }
