@@ -37,7 +37,14 @@ const DisplayTable = ({ columnFormat, data, format, setSelectedRow }) => {
       window.URL.revokeObjectURL(url);
     });
   };
-
+  const gridOptions = {
+    defaultColDef: {
+      resizable: true,
+      flex: 1,
+    },
+    columnDefs: columnFormat,
+    rowData: data,
+  };
   return (
     <div>
       <div className="bg-red-50 flex justify-end p-2">
@@ -50,18 +57,11 @@ const DisplayTable = ({ columnFormat, data, format, setSelectedRow }) => {
       </div>
       <div className="ag-theme-alpine" style={{ height: 400, width: "auto" }}>
         <AgGridReact
-          ref={gridRef}
           onRowClicked={(e) =>
             setSelectedRow ? setSelectedRow(e.data[format]) : ""
           }
-          gridOptions={{
-            defaultColDef: {
-              resizable: true,
-              flex: 1,
-            },
-            columnDefs: columnFormat,
-            rowData: data,
-          }}
+          rowData={data}
+          gridOptions={gridOptions}
         ></AgGridReact>
       </div>
     </div>
