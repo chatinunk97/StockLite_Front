@@ -6,7 +6,7 @@ export default function StockDisplayBox({ openModal }) {
   const {
     searchSupplier,
     searchStockResult,
-    deleteOrderFunction,
+    deleteStockFunction,
     setSelectedOrder,
   } = useWMSContext();
   useEffect(() => {
@@ -50,10 +50,10 @@ export default function StockDisplayBox({ openModal }) {
                 true,
                 "Confirm",
                 "Cancel",
-                `Are you sure you want to delete Order Id : ${params.data.orderId}`
+                `Are you sure you want to delete Stock Id : ${params.data.stockId}`
               ).then((res) => {
                 if (res.value) {
-                  deleteOrderFunction(params.data.orderId);
+                  deleteStockFunction(params.data.stockId);
                 }
               });
             }}

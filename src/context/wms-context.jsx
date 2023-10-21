@@ -253,7 +253,6 @@ export default function WMSContextProvider({ children }) {
       );
     }
   };
-
   const [editOrderInput, setEditOrderInput] = useState({
     orderId: "",
     receiveDate: "",
@@ -263,7 +262,9 @@ export default function WMSContextProvider({ children }) {
   });
   const editOrderFunction = async () => {
     try {
-      console.log(editOrderInput.receiveDate);
+      if (editOrderInput.receiveDate === selectedOrder.receiveDate) {
+        delete editOrderInput.receiveDate;
+      }
       const result = await axios.patch("/wms/order", editOrderInput);
       AlertNotiSuc(
         "success",
@@ -278,6 +279,13 @@ export default function WMSContextProvider({ children }) {
       );
     } finally {
       searchOrderFunction(searchOrderInput);
+      setEditOrderInput({
+        orderId: "",
+        receiveDate: "",
+        username: "",
+        supplierName: "",
+        sumPrice: "",
+      });
     }
   };
 
@@ -307,7 +315,7 @@ export default function WMSContextProvider({ children }) {
     {
       id: 7,
       data: "expirationDate",
-      filterName: "EXP date",
+      filterName: "EXP date before",
       isOn: false,
       type: "date",
     },
@@ -321,7 +329,7 @@ export default function WMSContextProvider({ children }) {
     pricePerUnit: "",
     expirationDate: "",
   });
-  const [searchStockResult , setSearchStockResult] = useState([])
+  const [searchStockResult, setSearchStockResult] = useState([]);
   const searchStockFunction = async (input) => {
     try {
       const {
@@ -333,23 +341,90 @@ export default function WMSContextProvider({ children }) {
         pricePerUnit,
         expirationDate,
       } = input;
+
       const searchResult = await axios(
-        `/wms/stock?${stockId}&orderId=${orderId}&supplierName=${supplierName}&productName=${productName}&stockQuantity=${stockQuantity}&pricePerUnit=${pricePerUnit}&expirationDate=${expirationDate}`
+        `/wms/stock?stockId=${stockId}&orderId=${orderId}&supplierName=${supplierName}&productName=${productName}&stockQuantity=${stockQuantity}&pricePerUnit=${pricePerUnit}&expirationDate=${expirationDate}`
       );
-      const flattenedResult = searchResult.data.result.map(item => ({
+      const flattenedResult = searchResult.data.result.map((item) => ({
         supplierId: item.OrderList.Supplier.supplierId,
         supplierName: item.OrderList.Supplier.supplierName,
-        ...item
+        ...item,
       }));
-      setSearchStockResult(flattenedResult)
+      for (let order of flattenedResult) {
+        if (order.expirationDate) {
+          order.expirationDate = date.transform(
+            order.expirationDate.split("T")[0],
+            "YYYY-MM-DD",
+            "DD MMM YYYY"
+          );
+        }
+      }
+      setSearchStockResult(flattenedResult);
     } catch (error) {
       console.log(error);
+      AlertNotiSuc(
+        "error",
+        "Something Went wrong",
+        `${error.response?.data.message}`
+      );
     }
   };
+  const [createStockInput, setCreateStockInput] = useState({
+    orderId: "",
+    productName: "",
+    stockQuantity: "",
+    pricePerUnit: "",
+    expirationDate: "",
+  });
+  const stockCreateFunction = async () => {
+    try {
+      const createResult = await axios.post("/wms/stock", createStockInput);
+      console.log("first");
+      searchStockFunction(searchStockInput);
+      AlertNotiSuc(
+        "success",
+        "New Order Created",
+        `Your Stock number is : "${createResult.data.createResult.stockId}"`
+      );
+    } catch (error) {
+      AlertNotiSuc(
+        "error",
+        "Something Went wrong",
+        `${error.response?.data.message}`
+      );
+    }
+  };
+  const deleteStockFunction = async (input) => {
+    try {
+      const deletedStock = await axios.delete(`/wms/stock?stockId=${input}`);
+      const deletedStockInstance = deletedStock.data.deletedStock;
+      setSearchStockResult((prev) => {
+        return prev.filter((el) => el.stockId !== deletedStockInstance.stockId);
+      });
+      AlertNotiSuc(
+        "success",
+        "Change saved",
+        `Order ID "${deletedStockInstance.stockId}" deleted`
+      );
+    } catch (error) {
+      AlertNotiSuc(
+        "error",
+        "Something Went wrong",
+        `${error.response?.data.message}`
+      );
+    }
+  };
+  const [editStockInput, setEditStockInput] = useState({
+    stockId: "",
+    receiveDate: "",
+    username: "",
+    supplierName: "",
+    sumPrice: "",
+  });
   useEffect(() => {
     searchSupplier(searchInput).catch((error) => console.log(error));
     searchOrderFunction(searchOrderInput).catch((error) => console.log(error));
-    searchStockFunction(searchStockInput).catch((error)=>console.log(error))
+    searchStockFunction(searchStockInput).catch((error) => console.log(error));
   }, []);
   const shareObj = {
     toolBarList,
@@ -387,7 +462,11 @@ export default function WMSContextProvider({ children }) {
     searchStockInput,
     setSearchStockInput,
     searchStockFunction,
-    searchStockResult
+    searchStockResult,
+    createStockInput,
+    setCreateStockInput,
+    stockCreateFunction,
+    deleteStockFunction,
   };
 
   return <WMSContext.Provider value={shareObj}>{children}</WMSContext.Provider>;
