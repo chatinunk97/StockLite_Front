@@ -5,7 +5,7 @@ import { Alert3Choice } from "../../../utils/sweetAlert";
 export default function StockDisplayBox({ openModal }) {
   const {
     searchSupplier,
-    searchOrderResult,
+    searchStockResult,
     deleteOrderFunction,
     setSelectedOrder,
   } = useWMSContext();
@@ -65,21 +65,10 @@ export default function StockDisplayBox({ openModal }) {
       ),
     },
   ];
-  const mockData = [
-    {
-      stockId: 1,
-      productName: "Lay",
-      pricePerUnit: 25,
-      stockQuantity: 1000,
-      expirationDate: "12 Oct 2023",
-      orderId: 1,
-      supplierName: "7-11",
-    },
-  ];
   return (
     <div>
       <DisplayTable
-        data={mockData}
+        data={searchStockResult}
         columnFormat={adGridColumnFormat}
       ></DisplayTable>
     </div>

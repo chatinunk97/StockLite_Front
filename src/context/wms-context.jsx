@@ -58,6 +58,11 @@ export default function WMSContextProvider({ children }) {
         "New Supplier Created",
         `Supplier name : "${createSupplierInput.supplierName}" created`
       );
+      setCreateSupplierInput({
+        supplierName: "",
+        supplierAddress: "",
+        supplierTel: "",
+      });
     } catch (error) {
       AlertNotiSuc(
         "error",
@@ -275,9 +280,76 @@ export default function WMSContextProvider({ children }) {
       searchOrderFunction(searchOrderInput);
     }
   };
+
+  // Stock
+  const [stockBar, setStockBar] = useState([
+    { id: 1, data: "stockId", filterName: "Stock ID", isOn: true },
+    { id: 2, data: "orderId", filterName: "Order ID", isOn: false },
+    {
+      id: 3,
+      data: "supplierName",
+      filterName: "Supplier name",
+      isOn: false,
+    },
+    { id: 4, data: "productName", filterName: "Product name", isOn: false },
+    {
+      id: 5,
+      data: "stockQuantity",
+      filterName: "Quantity",
+      isOn: false,
+    },
+    {
+      id: 6,
+      data: "pricePerUnit",
+      filterName: "Price per unit",
+      isOn: false,
+    },
+    {
+      id: 7,
+      data: "expirationDate",
+      filterName: "EXP date",
+      isOn: false,
+      type: "date",
+    },
+  ]);
+  const [searchStockInput, setSearchStockInput] = useState({
+    stockId: "",
+    orderId: "",
+    supplierName: "",
+    productName: "",
+    stockQuantity: "",
+    pricePerUnit: "",
+    expirationDate: "",
+  });
+  const [searchStockResult , setSearchStockResult] = useState([])
+  const searchStockFunction = async (input) => {
+    try {
+      const {
+        stockId,
+        orderId,
+        supplierName,
+        productName,
+        stockQuantity,
+        pricePerUnit,
+        expirationDate,
+      } = input;
+      const searchResult = await axios(
+        `/wms/stock?${stockId}&orderId=${orderId}&supplierName=${supplierName}&productName=${productName}&stockQuantity=${stockQuantity}&pricePerUnit=${pricePerUnit}&expirationDate=${expirationDate}`
+      );
+      const flattenedResult = searchResult.data.result.map(item => ({
+        supplierId: item.OrderList.Supplier.supplierId,
+        supplierName: item.OrderList.Supplier.supplierName,
+        ...item
+      }));
+      setSearchStockResult(flattenedResult)
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     searchSupplier(searchInput).catch((error) => console.log(error));
     searchOrderFunction(searchOrderInput).catch((error) => console.log(error));
+    searchStockFunction(searchStockInput).catch((error)=>console.log(error))
   }, []);
   const shareObj = {
     toolBarList,
@@ -311,6 +383,11 @@ export default function WMSContextProvider({ children }) {
     editOrderInput,
     setEditOrderInput,
     editOrderFunction,
+    stockBar,
+    searchStockInput,
+    setSearchStockInput,
+    searchStockFunction,
+    searchStockResult
   };
 
   return <WMSContext.Provider value={shareObj}>{children}</WMSContext.Provider>;
