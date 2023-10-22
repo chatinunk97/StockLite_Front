@@ -21,11 +21,11 @@ export default function OrderDisplayBox({ openModal }) {
   }, []);
 
   const adGridColumnFormat = [
-    { field: "orderId", headerName: "ID" ,width : 50},
-    { field: "receiveDate", headerName: "Date",flex: 1 },
-    { field: "username", headerName: "Responsible User",flex: 1 },
-    { field: "supplierName", headerName: "Supplier name",flex: 1 },
-    { field: "sumPrice", headerName: "Total expense",flex: 1 },
+    { field: "orderId", headerName: "ID" ,width : 70,sortable: true},
+    { field: "receiveDate", headerName: "Date",flex: 1,sortable: true },
+    { field: "username", headerName: "Responsible User",flex: 1 ,sortable: true},
+    { field: "supplierName", headerName: "Supplier name",flex: 1 ,sortable: true},
+    { field: "sumPrice", headerName: "Total expense",flex: 1 ,sortable: true},
     {
       field: "actionButtons",
       headerName: "Action Buttons",

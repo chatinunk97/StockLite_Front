@@ -2,55 +2,71 @@ import { useEffect } from "react";
 import InputBar from "../../../../components/InputBar";
 import SubmitButton from "../../../../components/SubmitButton";
 import useWMSContext from "../../../../hooks/wms-hook";
-export default function StockEditForm({ onClose }) {
+export default function ShelfEditForm({ onClose }) {
   const {
-    editStockInput,
-    setEditStockInput,
-    selectedStock,
-    editStockFunction,
+    editShelfInput,
+    setEditShelfInput,
+    selectedShelf,
+    editShelfFunction,
   } = useWMSContext();
   const inputList = [
-    { id: 1, data: "stockId", filterName: "Stock ID", isDisabled: true },
+    { id: 1, data: "shelfItemId", filterName: "Shelf ID", isDisabled: true },
+    { id: 2, data: "stockId", filterName: "Stock ID", isDisabled: true },
     {
-      id: 2,
-      data: "supplierName",
-      filterName: "Supplier Name",
+      id: 3,
+      data: "productName",
+      filterName: "Product name",
       isDisabled: true,
     },
-    { id: 3, data: "productName", filterName: "Product Name" },
-    { id: 4, data: "stockQuantity", filterName: "Stock" },
-    { id: 5, data: "pricePerUnit", filterName: "Price per unit" },
-    { id: 6, data: "expirationDate", filterName: "EXP Date", type: "date" },
+    {
+      id: 4,
+      data: "shelfQuantity",
+      filterName: "Current Shelf",
+      isDisabled: true,
+    },
+    {
+      id: 5,
+      data: "stockQuantity",
+      filterName: "Current Stock",
+      isDisabled: true,
+    },
+    {
+      id: 6,
+      data: "quantityTobeMoved",
+      filterName: "Quantity moving to shelf",
+      isDisabled: false,
+    },
   ];
   useEffect(() => {
     const listEditInput = [
+      "shelfItemId",
       "stockId",
-      "supplierName",
       "productName",
       "stockQuantity",
-      "pricePerUnit",
-      "expirationDate",
+      "shelfQuantity",
+      "quantityTobeMoved",
     ];
-    for (let i in selectedStock) {
+    for (let i in selectedShelf) {
       if (!listEditInput.includes(i)) {
-        delete selectedStock[i];
+        delete selectedShelf[i];
       }
-      if(!selectedStock[i]){
-        selectedStock[i] = ""
+      if (!selectedShelf[i]) {
+        selectedShelf[i] = 0;
       }
     }
-    setEditStockInput(selectedStock);
+    setEditShelfInput((prev)=>{return {...prev , ...selectedShelf}});
   }, []);
+
   const handleInputChange = async (event, field) => {
-    await setEditStockInput({
-      ...editStockInput,
+    await setEditShelfInput({
+      ...editShelfInput,
       [field]: event.target.value,
     });
   };
 
   const handleEditSubmit = async (event) => {
     event.preventDefault();
-    await editStockFunction(editStockInput);
+    await editShelfFunction(editShelfInput);
     onClose(false);
   };
   return (
@@ -69,7 +85,7 @@ export default function StockEditForm({ onClose }) {
                 <InputBar
                   type={el.type}
                   isDisabled={el.isDisabled ? true : false}
-                  value={editStockInput[el.data]}
+                  value={editShelfInput[el.data]}
                   onChange={(event) => {
                     handleInputChange(event, el.data);
                   }}

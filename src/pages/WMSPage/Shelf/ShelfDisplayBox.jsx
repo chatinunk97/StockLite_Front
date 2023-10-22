@@ -1,15 +1,22 @@
-import DisplayTable from "../../../components/DisplayTable";
+import { useEffect } from "react";
 import useWMSContext from "../../../hooks/wms-hook";
+import DisplayTable from "../../../components/DisplayTable";
 import { Alert3Choice } from "../../../utils/sweetAlert";
-export default function SupplierDisplayBox({ openModal }) {
-  const { searchSupplierResult, setSelectedSupplier, deleteSupplierFunction } =
-    useWMSContext();
+export default function StockDisplayBox({ openModal }) {
+  const {
+    searchShelfResult,
+    setSelectedShelf,
+    shelfDeleteFunction,
+  } = useWMSContext();
+
   const adGridColumnFormat = [
-    { field: "supplierId", headerName: "ID", width: 80 ,sortable: true},
-    { field: "supplierName", headerName: "Supplier name", flex: 1 ,sortable: true},
-    { field: "supplierAddress", headerName: "Supplier Address", flex: 1,sortable: true },
-    { field: "supplierTel", headerName: "Supplier Tel", flex: 1,sortable: true },
-    { field: "createdAt", headerName: "Created Date", flex: 1,sortable: true },
+    { field: "shelfItemId", headerName: "ShelfID", width: 100,sortable: true },
+    { field: "stockId", headerName: "Stock ID", width: 100 ,sortable: true},
+    { field: "productName", headerName: "Product name", flex: 1 ,sortable: true},
+    { field: "pricePerUnit", headerName: "PPU (THB)", flex: 1 ,sortable: true},
+    { field: "shelfQuantity", headerName: "On shelf Count", flex: 1 ,sortable: true },
+    { field: "stockQuantity", headerName: "Stock", flex: 1,sortable: true },
+    { field: "expirationDate", headerName: "EXP Date", flex: 1 ,sortable: true},
     {
       field: "actionButtons",
       headerName: "Action Buttons",
@@ -18,24 +25,25 @@ export default function SupplierDisplayBox({ openModal }) {
           <button
             onClick={(e) => {
               e.stopPropagation();
-              setSelectedSupplier(params.data);
+              setSelectedShelf(params.data);
+              console.log(params.data)
               openModal(true);
             }}
             className="font-bold text-white w-full bg-green-600 rounded-lg flex justify-center items-center px-2"
           >
             Edit
           </button>
-          <button
+          <button 
             onClick={() => {
               Alert3Choice(
                 "Confirm Delete",
                 true,
                 "Confirm",
                 "Cancel",
-                `Are you sure you want to delete Supplier : ${params.data.supplierName}`
+                `Are you sure you want to delete Shelf Id : ${params.data.shelfItemId}`
               ).then((res) => {
                 if (res.value) {
-                  deleteSupplierFunction(params.data.supplierId);
+                  shelfDeleteFunction(params.data.shelfItemId);
                 }
               });
             }}
@@ -48,9 +56,9 @@ export default function SupplierDisplayBox({ openModal }) {
     },
   ];
   return (
-    <div className="relative">
+    <div>
       <DisplayTable
-        data={searchSupplierResult}
+        data={searchShelfResult}
         columnFormat={adGridColumnFormat}
       ></DisplayTable>
     </div>

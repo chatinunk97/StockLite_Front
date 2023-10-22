@@ -234,10 +234,8 @@ export default function WMSContextProvider({ children }) {
   const createOrderFunction = async () => {
     try {
       const createResult = await axios.post("/wms/order", createOrderInput);
-      setCreateOrderInput({
-        supplierId: "",
-        receiveDate: "",
-        sumPrice: "",
+      setCreateOrderInput((prev) => {
+        return { ...prev, receiveDate: "", sumPrice: "" };
       });
       await searchOrderFunction(searchOrderInput);
       AlertNotiSuc(
@@ -269,7 +267,7 @@ export default function WMSContextProvider({ children }) {
       AlertNotiSuc(
         "success",
         "Order Info updated",
-        `Updated infor for Order number : "${result.data.editResult.orderId}"`
+        `Updated info for Order number : "${result.data.editResult.orderId}"`
       );
     } catch (error) {
       AlertNotiSuc(
@@ -361,7 +359,6 @@ export default function WMSContextProvider({ children }) {
       }
       setSearchStockResult(flattenedResult);
     } catch (error) {
-      console.log(error);
       AlertNotiSuc(
         "error",
         "Something Went wrong",
@@ -381,6 +378,13 @@ export default function WMSContextProvider({ children }) {
       const createResult = await axios.post("/wms/stock", createStockInput);
       console.log("first");
       searchStockFunction(searchStockInput);
+      setCreateStockInput({
+        orderId: "",
+        productName: "",
+        stockQuantity: "",
+        pricePerUnit: "",
+        expirationDate: "",
+      });
       AlertNotiSuc(
         "success",
         "New Order Created",
@@ -415,16 +419,202 @@ export default function WMSContextProvider({ children }) {
     }
   };
   const [editStockInput, setEditStockInput] = useState({
-    stockId: "",
-    receiveDate: "",
-    username: "",
     supplierName: "",
-    sumPrice: "",
+    stockId: "",
+    productName: "",
+    stockQuantity: "",
+    pricePerUnit: "",
+    expirationDate: "",
   });
+  const [selectedStock, setSelectedStock] = useState({});
+  const editStockFunction = async () => {
+    try {
+      if (editStockInput.expirationDate === selectedStock.expirationDate) {
+        delete editStockInput.expirationDate;
+      }
+      const result = await axios.patch("/wms/stock", editStockInput);
+      AlertNotiSuc(
+        "success",
+        "Stock Info updated",
+        `Updated info for Stock number : "${result.data.editResult.stockId}"`
+      );
+    } catch (error) {
+      AlertNotiSuc(
+        "error",
+        "Something Went wrong",
+        `${error.response?.data.message}`
+      );
+    } finally {
+      searchStockFunction(searchStockInput);
+      setEditStockInput({
+        supplierName: "",
+        stockId: "",
+        productName: "",
+        stockQuantity: "",
+        pricePerUnit: "",
+        expirationDate: "",
+      });
+    }
+  };
+
+  //Shelf
+  const [searchShelfResult, setSearchShelfResult] = useState([]);
+  const [shelfBar, setShelfBar] = useState([
+    { id: 1, data: "shelfItemId", filterName: "Shelf ID", isOn: true },
+    { id: 2, data: "stockId", filterName: "Stock ID", isOn: false },
+    { id: 3, data: "productName", filterName: "PropductName", isOn: false },
+    { id: 4, data: "stockQuantity", filterName: "Stock", isOn: false },
+    {
+      id: 5,
+      data: "shelfQuantity",
+      filterName: "Shelf Quantity",
+      isOn: false,
+    },
+    {
+      id: 6,
+      data: "expirationDate",
+      filterName: "EXP Date",
+      isOn: false,
+      type: "date",
+    },
+  ]);
+  const [searchShelfInput, setSearchShelfInput] = useState({
+    shelfItemId: "",
+    stockId: "",
+    productName: "",
+    stockQuantity: "",
+    shelfQuantity: "",
+    expirationdate: "",
+  });
+  const searchShelfFunction = async (input) => {
+    try {
+      const {
+        shelfItemId,
+        stockId,
+        productName,
+        stockQuantity,
+        shelfQuantity,
+        expirationdate,
+      } = input;
+      console.log(input);
+      const searchResult = await axios.get(
+        `/wms/shelf?shelfItemId=${shelfItemId}&stockId=${stockId}&shelfQuantity=${shelfQuantity}&expirationDate=${expirationdate}&productName=${productName}&stockQuantity=${stockQuantity}`,
+        input
+      );
+      const rawResult = searchResult.data.searchResult;
+      const flattenedResult = rawResult.map((item) => ({
+        ...item,
+        productName: item.productStock.productName,
+        stockQuantity: item.productStock.stockQuantity,
+        expirationDate: item.productStock.expirationDate,
+        pricePerUnit: item.productStock.pricePerUnit,
+      }));
+      for (let order of flattenedResult) {
+        if (order.expirationDate) {
+          order.expirationDate = date.transform(
+            order.expirationDate.split("T")[0],
+            "YYYY-MM-DD",
+            "DD MMM YYYY"
+          );
+        }
+      }
+      setSearchShelfResult(flattenedResult);
+    } catch (error) {
+      AlertNotiSuc(
+        "error",
+        "Something Went wrong",
+        `${error.response?.data.message}`
+      );
+    }
+  };
+
+  const [shelfCreateInput, setShelfCreateInput] = useState({
+    stockId: "",
+  });
+  const shelfCreateFunction = async () => {
+    try {
+      const createResult = await axios.post("/wms/shelf", shelfCreateInput);
+      searchShelfFunction(searchShelfInput);
+      AlertNotiSuc(
+        "success",
+        "Shelf Record created",
+        `Your Shelf code is  : "${createResult.data.createResult.shelfItemId}"`
+      );
+    } catch (error) {
+      console.log(error);
+      AlertNotiSuc(
+        "error",
+        "Something Went wrong",
+        `${error.response?.data.message}`
+      );
+    }
+  };
+  const shelfDeleteFunction = async (input) => {
+    try {
+      const deleteShelf = await axios.delete(`/wms/shelf?shelfItemId=${input}`);
+      const deleteShelfInstance = deleteShelf.data.deletedShelf;
+      setSearchShelfResult((prev) => {
+        return prev.filter(
+          (el) => el.shelfItemId !== deleteShelfInstance.shelfItemId
+        );
+      });
+      AlertNotiSuc(
+        "success",
+        "Change saved",
+        `Shelf ID "${deleteShelfInstance.shelfItemId}" deleted`
+      );
+    } catch (error) {
+      AlertNotiSuc(
+        "error",
+        "Something Went wrong",
+        `${error.response?.data.message}`
+      );
+    }
+  };
+  const [selectedShelf, setSelectedShelf] = useState({});
+  const [editShelfInput, setEditShelfInput] = useState({
+    shelfItemId: "",
+    stockId: "",
+    productName: "",
+    shelfQuantity: "",
+    stockQuantity: "",
+    quantityTobeMoved: "",
+  });
+  const editShelfFunction = async () => {
+    try {
+      const inputObject = {
+        shelfItemId: editShelfInput.shelfItemId,
+        shelfAddQuantity: editShelfInput.quantityTobeMoved,
+      };
+      const editResult = await axios.patch('/wms/shelf',inputObject)
+      const data = editResult.data
+      AlertNotiSuc(
+        "success",
+        "Product Movde to Shelf !",
+        `Moved  ${inputObject.shelfAddQuantity} products to shelf now shelf has ${data.updatedResult.shelfQuantity} products`
+      );
+      setEditShelfInput({
+        shelfItemId: "",
+        stockId: "",
+        productName: "",
+        shelfQuantity: "",
+        stockQuantity: "",
+        quantityTobeMoved: "",
+      });
+      searchShelfFunction(searchShelfInput)
+    } catch (error) {
+      AlertNotiSuc(
+        "error",
+        "Something Went wrong",
+        `${error.response?.data.message}`
+      );
+    }
+  };
   useEffect(() => {
     searchSupplier(searchInput).catch((error) => console.log(error));
     searchOrderFunction(searchOrderInput).catch((error) => console.log(error));
     searchStockFunction(searchStockInput).catch((error) => console.log(error));
+    searchShelfFunction(searchShelfInput).catch((error) => console.log(error));
   }, []);
   const shareObj = {
     toolBarList,
@@ -467,6 +657,26 @@ export default function WMSContextProvider({ children }) {
     setCreateStockInput,
     stockCreateFunction,
     deleteStockFunction,
+    editStockInput,
+    setEditStockInput,
+    selectedStock,
+    setSelectedStock,
+    editStockFunction,
+    shelfBar,
+    setShelfBar,
+    searchShelfInput,
+    setSearchShelfInput,
+    searchShelfFunction,
+    searchShelfResult,
+    shelfCreateInput,
+    setShelfCreateInput,
+    shelfCreateFunction,
+    shelfDeleteFunction,
+    setSelectedShelf,
+    selectedShelf,
+    editShelfInput,
+    setEditShelfInput,
+    editShelfFunction,
   };
 
   return <WMSContext.Provider value={shareObj}>{children}</WMSContext.Provider>;

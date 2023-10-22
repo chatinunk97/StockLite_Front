@@ -1,28 +1,28 @@
 import { Outlet } from "react-router-dom";
-import StockSubBar from "./StockSubBar";
-import StockDisplayBox from "./StockDisplayBox";
 import ModalPopup from "../../../components/ModalPopup";
 import { useState } from "react";
-import StockEditForm from "./StockEdit/StockEditForm";
+import ShelfSubBar from "./ShelfSubBar";
+import ShelfDisplayBox from "./ShelfDisplayBox";
+import ShelfEditForm from "./ShelfEdit/ShelfEditForm";
 
-export default function StockMainPage() {
+export default function ShelfMainPage() {
   const [isModalOpen, setIsOpen] = useState(false);
   return (
     <div>
       <div className="flex flex-col gap-5">
-        <StockSubBar />
+        <ShelfSubBar />
         <Outlet />
-        <StockDisplayBox openModal={setIsOpen} />
+        <ShelfDisplayBox openModal={setIsOpen} />
       </div>
       <div>
         {isModalOpen && (
           <ModalPopup
-            title={"Edit Stock Information"}
+            title={"Move Stock to shelf"}
             setIsOpen={setIsOpen}
             open={isModalOpen}
             onClose={() => setIsOpen(false)}
           >
-            <StockEditForm onClose={setIsOpen} />
+            <ShelfEditForm onClose={setIsOpen} />
           </ModalPopup>
         )}
       </div>

@@ -7,7 +7,7 @@ export default function StockDisplayBox({ openModal }) {
     searchSupplier,
     searchStockResult,
     deleteStockFunction,
-    setSelectedOrder,
+    setSelectedStock,
   } = useWMSContext();
   useEffect(() => {
     searchSupplier({
@@ -21,13 +21,14 @@ export default function StockDisplayBox({ openModal }) {
   }, []);
 
   const adGridColumnFormat = [
-    { field: "stockId", headerName: "ID", width: 50 },
-    { field: "productName", headerName: "Product", flex: 1 },
-    { field: "pricePerUnit", headerName: "PPU (THB)", flex: 1 },
-    { field: "stockQuantity", headerName: "Stock", flex: 1 },
-    { field: "expirationDate", headerName: "EXP date", flex: 1 },
-    { field: "orderId", headerName: "Order ID", flex: 1 },
-    { field: "supplierName", headerName: "Supplier", flex: 1 },
+    { field: "stockId", headerName: "ID", width: 70,sortable: true },
+    { field: "productName", headerName: "Product", flex: 1 ,sortable: true},
+    { field: "pricePerUnit", headerName: "PPU (THB)", flex: 1 ,sortable: true},
+    { field: "stockQuantity", headerName: "Stock", flex: 1 ,sortable: true},
+    { field: "refillCount", headerName: "Refill Count", flex: 1 ,sortable: true },
+    { field: "expirationDate", headerName: "EXP date", flex: 1,sortable: true },
+    { field: "orderId", headerName: "Order ID", flex: 1 ,sortable: true},
+    { field: "supplierName", headerName: "Supplier", flex: 1 ,sortable: true},
     {
       field: "actionButtons",
       headerName: "Action Buttons",
@@ -36,7 +37,7 @@ export default function StockDisplayBox({ openModal }) {
           <button
             onClick={(e) => {
               e.stopPropagation();
-              setSelectedOrder(params.data);
+              setSelectedStock(params.data);
               openModal(true);
             }}
             className="font-bold text-white w-full bg-green-600 rounded-lg flex justify-center items-center px-2"

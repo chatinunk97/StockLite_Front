@@ -2,50 +2,40 @@ import useWMSContext from "../../../../hooks/wms-hook";
 import InputBar from "../../../../components/InputBar";
 import SubmitButton from "../../../../components/SubmitButton";
 import DropdownSearch from "../../../../components/DropdownSearch";
-export default function OrderToolBar() {
+export default function ShelfToolBar() {
   const {
-    createStockInput,
-    setCreateStockInput,
-    searchOrderResult,
-    stockCreateFunction,
+    shelfCreateInput,
+    setShelfCreateInput,
+    searchStockResult,
+    shelfCreateFunction,
   } = useWMSContext();
   function restructureSuppliers(arr) {
     return arr.map((obj) => {
       return {
-        value: obj.orderId,
-        label: `Order ID : ${obj.orderId}  Supplier : ${obj.supplierName}`,
+        value: obj.stockId,
+        label: `Stock ID : ${obj.stockId}  Product : ${obj.productName}`,
       };
     });
   }
-  const rearrangedOptions = restructureSuppliers(searchOrderResult);
+  const rearrangedOptions = restructureSuppliers(searchStockResult);
   const inputList = [
-    { id: 1, data: "orderId", filterName: "Order ID" , type: "dropdownSearch" },
-    { id: 2, data: "productName", filterName: "Product Name" },
-    { id: 3, data: "stockQuantity", filterName: "Stock Quantity" },
-    { id: 4, data: "pricePerUnit", filterName: "Price Per Unit" },
-    { id: 5, data: "expirationDate", filterName: "EXP date" , type : "date" },
+    {
+      id: 1,
+      data: "stockId",
+      filterName: "Stock ID",
+      type: "dropdownSearch",
+    },
   ];
 
-
-  const handleInputChange = (event, field) => {
-    if (field === "orderId") {
-      setCreateStockInput({
-        ...createStockInput,
-        orderId: event.value,
-      });
-    } else {
-      setCreateStockInput({
-        ...createStockInput,
-        [field]: event.target.value,
-      });
-    }
+  const handleInputChange = (event) => {
+    setShelfCreateInput({ stockId: event.value });
   };
   return (
     <div>
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          stockCreateFunction();
+          shelfCreateFunction()
         }}
         className=" md:px-10 lg:px-48 py-5 flex flex-col gap-5"
       >
@@ -64,7 +54,7 @@ export default function OrderToolBar() {
               ) : (
                 <InputBar
                   type={el.type}
-                  value={createStockInput[el.data]}
+                  value={shelfCreateInput[el.data]}
                   onChange={(event) => {
                     handleInputChange(event, el.data);
                   }}

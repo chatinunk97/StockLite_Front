@@ -19,6 +19,9 @@ import OrderEdit from "../pages/WMSPage/Order/OrderEdit/OrderEdit";
 import StockMainPage from "../pages/WMSPage/Stock/StockMainPage";
 import StockSearch from "../pages/WMSPage/Stock/StockSearch/StockSearch";
 import StockEdit from "../pages/WMSPage/Stock/StockEdit/StockEdit";
+import ShelfMainPage from "../pages/WMSPage/Shelf/ShelfMainPage";
+import ShelfSearch from "../pages/WMSPage/Shelf/ShelfSearch/ShelfSearch";
+import ShelfEdit from "../pages/WMSPage/Shelf/ShelfEdit/ShelfEdit";
 
 export default function Route() {
   const router = createBrowserRouter([
@@ -76,12 +79,19 @@ export default function Route() {
               children: [
                 {
                   path: "/wms/stock/search",
-                  element: <StockSearch/>,
+                  element: <StockSearch />,
                 },
-                { path: "/wms/stock/edit", element: <StockEdit/> },
+                { path: "/wms/stock/edit", element: <StockEdit /> },
               ],
             },
-            { path: "/wms/shelf", element: <h1>Shelf</h1> },
+            {
+              path: "/wms/shelf",
+              element: <ShelfMainPage />,
+              children: [
+                { path: "/wms/shelf/search", element: <ShelfSearch/> },
+                { path: "/wms/shelf/edit", element: <ShelfEdit/> },
+              ],
+            },
           ],
         },
         {

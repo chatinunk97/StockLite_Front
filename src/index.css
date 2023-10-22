@@ -12,6 +12,3 @@ body{
 #root{
 height: 100%;
 }
-.ag-theme-alpine .ag-center-cols-viewport .ag-row {
-  min-height: 60px; /* Adjust the height as needed */
-}
