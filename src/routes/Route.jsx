@@ -22,6 +22,7 @@ import StockEdit from "../pages/WMSPage/Stock/StockEdit/StockEdit";
 import ShelfMainPage from "../pages/WMSPage/Shelf/ShelfMainPage";
 import ShelfSearch from "../pages/WMSPage/Shelf/ShelfSearch/ShelfSearch";
 import ShelfEdit from "../pages/WMSPage/Shelf/ShelfEdit/ShelfEdit";
+import PosMainPage from "../pages/POSPage/PosMainPage";
 
 export default function Route() {
   const router = createBrowserRouter([
@@ -96,7 +97,7 @@ export default function Route() {
         },
         {
           path: "/pos",
-          element: <h1>pos</h1>,
+          element: <PosMainPage/>,
         },
         {
           path: "/admin",
