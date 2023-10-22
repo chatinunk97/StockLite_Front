@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import InputBar from "../../components/InputBar";
 import usePOSContext from "../../hooks/pos-hook";
+
 export default function SearchBar() {
   const { getShelfItemFunction, searchShelfInput, setSearchShelfInput } =
     usePOSContext();
+
   const handleChange = (event) => {
     setSearchShelfInput(event.target.value);
   };

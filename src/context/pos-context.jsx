@@ -2,10 +2,13 @@ import { createContext } from "react";
 import { AlertNotiSuc } from "../utils/sweetAlert";
 import axios from "axios";
 import { useState } from "react";
+import useSound from "use-sound";
+import beepSound from "../assets/POS/beepSound.mp3";
 export const POSContext = createContext("initial context");
 
 export default function POSContextProvider({ children }) {
   const [saleList, setSaleList] = useState([]);
+  const [playSound] = useSound(beepSound);
   const [searchShelfInput, setSearchShelfInput] = useState("");
   const getShelfItemFunction = async () => {
     try {
@@ -25,7 +28,8 @@ export default function POSContextProvider({ children }) {
             newArray[el].quantity++;
             return newArray;
           });
-          setSearchShelfInput("")
+          playSound();
+          setSearchShelfInput("");
           return;
         }
       }
@@ -38,7 +42,8 @@ export default function POSContextProvider({ children }) {
       setSaleList((prev) => {
         return [...prev, ...newArray];
       });
-      setSearchShelfInput("")
+      playSound();
+      setSearchShelfInput("");
     } catch (error) {
       console.log(error);
       AlertNotiSuc(
