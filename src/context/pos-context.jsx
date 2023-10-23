@@ -112,6 +112,9 @@ export default function POSContextProvider({ children }) {
     itemCount,
     sumSale,
     makeOrderFunction,
+    setSaleList,
+    setItemCount,
+    setSumSale
   };
   return <POSContext.Provider value={shareObj}>{children}</POSContext.Provider>;
 }
