@@ -376,18 +376,19 @@ export default function WMSContextProvider({ children }) {
   const stockCreateFunction = async () => {
     try {
       const createResult = await axios.post("/wms/stock", createStockInput);
-      console.log("first");
       searchStockFunction(searchStockInput);
-      setCreateStockInput({
-        orderId: "",
-        productName: "",
-        stockQuantity: "",
-        pricePerUnit: "",
-        expirationDate: "",
+      setCreateStockInput((prev) => {
+        return {
+          ...prev,
+          productName: "",
+          stockQuantity: "",
+          pricePerUnit: "",
+          expirationDate: "",
+        };
       });
       AlertNotiSuc(
         "success",
-        "New Order Created",
+        "New Stock Created",
         `Your Stock number is : "${createResult.data.createResult.stockId}"`
       );
     } catch (error) {
@@ -586,8 +587,8 @@ export default function WMSContextProvider({ children }) {
         shelfItemId: editShelfInput.shelfItemId,
         shelfAddQuantity: editShelfInput.quantityTobeMoved,
       };
-      const editResult = await axios.patch('/wms/shelf',inputObject)
-      const data = editResult.data
+      const editResult = await axios.patch("/wms/shelf", inputObject);
+      const data = editResult.data;
       AlertNotiSuc(
         "success",
         "Product Movde to Shelf !",
@@ -601,7 +602,7 @@ export default function WMSContextProvider({ children }) {
         stockQuantity: "",
         quantityTobeMoved: "",
       });
-      searchShelfFunction(searchShelfInput)
+      searchShelfFunction(searchShelfInput);
     } catch (error) {
       AlertNotiSuc(
         "error",
