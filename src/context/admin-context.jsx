@@ -21,45 +21,52 @@ export default function AdminContextProvider({ children }) {
   });
   const [searchUserResult, setSearchUserResult] = useState([]);
   const searchUser = async (input) => {
-    const { userId, firstName, lastName, username } = input;
-    const result = await axios.get(
-      `/manage/userfilter?userId=${userId || ""}&firstName=${
-        firstName || ""
-      }&lastName=${lastName || ""}&username=${username || ""}&userRole=`
-    );
-    for (let user of result.data.searchResult) {
-      user.createdAt = date.transform(
-        user.createdAt.split("T")[0],
-        "YYYY-MM-DD",
-        "DD MMM YYYY"
+    try {
+      const { userId, firstName, lastName, username } = input;
+      console.log(userId)
+      const result = await axios.get(
+        `/manage/userfilter?userId=${userId || ""}&firstName=${
+          firstName || ""
+        }&lastName=${lastName || ""}&username=${username || ""}&userRole=`
       );
+      for (let user of result.data.searchResult) {
+        user.createdAt = date.transform(
+          user.createdAt.split("T")[0],
+          "YYYY-MM-DD",
+          "DD MMM YYYY"
+        );
+      }
+      setSearchUserResult(result.data.searchResult);
+    } catch (error) {
+      console.log(error)
     }
-    setSearchUserResult(result.data.searchResult);
   };
 
   useEffect(() => {
-    searchUser(searchInput).catch((error) => console.log(error));
-    axios.get('/manage/sales').then(res=>{
-      const data = res.data
+    searchUser(searchInput);
+    axios.get("/manage/sales").then((res) => {
+      const data = res.data;
       const summarizedData = data.searchResult.reduce((acc, transaction) => {
-          const existingUser = acc.find((user) => user.username === transaction.User.username);
-        
-          if (existingUser) {
-            // Update the existing user's sales
-            existingUser.sales += transaction.sumSale;
-          } else {
-            // Add a new user entry
-            acc.push({
-              id: acc.length + 1,
-              username: transaction.User.username,
-              sales: transaction.sumSale,
-            });
-          }
-        
-          return acc;
-        }, []);
-      setRawData(summarizedData)
-      })
+        const existingUser = acc.find(
+          (user) => user.username === transaction.User.username
+        );
+
+        if (existingUser) {
+          // Update the existing user's sales
+          existingUser.sales += transaction.sumSale;
+        } else {
+          // Add a new user entry
+          acc.push({
+            id: acc.length + 1,
+            username: transaction.User.username,
+            sales: transaction.sumSale,
+          });
+        }
+
+        return acc;
+      }, []);
+      setRawData(summarizedData);
+    });
   }, []);
 
   const [createUserInput, setCreateUserInput] = useState({
@@ -81,6 +88,7 @@ export default function AdminContextProvider({ children }) {
     firstName: "",
     lastName: "",
     userRole: "",
+    active: "",
   });
   const [selectedRow, setSelectedRow] = useState(null);
   const deleteUserFunction = async (userId) => {
@@ -130,7 +138,7 @@ export default function AdminContextProvider({ children }) {
       );
     }
   };
-  const [rawData , setRawData] = useState([])
+  const [rawData, setRawData] = useState([]);
 
   const sharedObj = {
     toolBarList,
@@ -148,7 +156,7 @@ export default function AdminContextProvider({ children }) {
     setEditUserInput,
     deleteUserFunction,
     editUserFunction,
-    rawData
+    rawData,
   };
   return (
     <AdminContext.Provider value={sharedObj}>{children}</AdminContext.Provider>

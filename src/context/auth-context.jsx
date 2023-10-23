@@ -19,7 +19,6 @@ export default function AuthContextProvider({ children }) {
       axios
         .get("/manage/user")
         .then((res) => setLoginUser(res.data))
-        .catch((error) => console.log(error))
         .finally(() => {
           setTimeout(() => {
             setIsLoading(false);

@@ -10,6 +10,7 @@ export default function AdminSearchDisplayBox() {
     { field: "firstName", headerName: "Firstname", flex: 1, sortable: true },
     { field: "lastName", headerName: "Lastname", flex: 1, sortable: true },
     { field: "userRole", headerName: "User Role", flex: 1, sortable: true },
+    { field: "active", headerName: "Active", flex: 1, sortable: true },
   ];
   return (
     <div>

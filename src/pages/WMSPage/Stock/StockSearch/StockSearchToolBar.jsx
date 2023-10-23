@@ -28,7 +28,7 @@ export default function StockSearchToolBar() {
   };
   return (
     <div>
-      <div className="grid grid-cols-2 md:flex justify-center items-center lg:gap-10">
+      <div className="grid grid-cols-2 2xl:flex justify-center items-center lg:gap-10">
         {stockBar.map((el) => {
           return (
             <ToolBarCheckBox

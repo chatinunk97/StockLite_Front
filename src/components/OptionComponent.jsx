@@ -17,6 +17,7 @@ export default function OptionComponent({
       >
         {option.map((el) => (
           <option
+          label={el.label}
             disabled={el.option === "admin" ? true : false}
             key={el.id}
             value={el.option}
