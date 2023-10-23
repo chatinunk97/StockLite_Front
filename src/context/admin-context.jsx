@@ -39,6 +39,27 @@ export default function AdminContextProvider({ children }) {
 
   useEffect(() => {
     searchUser(searchInput).catch((error) => console.log(error));
+    axios.get('/manage/sales').then(res=>{
+      const data = res.data
+      const summarizedData = data.searchResult.reduce((acc, transaction) => {
+          const existingUser = acc.find((user) => user.username === transaction.User.username);
+        
+          if (existingUser) {
+            // Update the existing user's sales
+            existingUser.sales += transaction.sumSale;
+          } else {
+            // Add a new user entry
+            acc.push({
+              id: acc.length + 1,
+              username: transaction.User.username,
+              sales: transaction.sumSale,
+            });
+          }
+        
+          return acc;
+        }, []);
+      setRawData(summarizedData)
+      })
   }, []);
 
   const [createUserInput, setCreateUserInput] = useState({
@@ -109,6 +130,8 @@ export default function AdminContextProvider({ children }) {
       );
     }
   };
+  const [rawData , setRawData] = useState([])
+
   const sharedObj = {
     toolBarList,
     setToolBar,
@@ -124,7 +147,8 @@ export default function AdminContextProvider({ children }) {
     editUserInput,
     setEditUserInput,
     deleteUserFunction,
-    editUserFunction
+    editUserFunction,
+    rawData
   };
   return (
     <AdminContext.Provider value={sharedObj}>{children}</AdminContext.Provider>

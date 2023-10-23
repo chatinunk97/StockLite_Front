@@ -30,6 +30,11 @@ export default function AdminMenuBar() {
             Edit User
           </Link>
         </SubMenuButton>
+        <SubMenuButton path={"/sales"}>
+          <Link to={"/admin/sales"} className="w-full h-full block p-4 ">
+            User Sales
+          </Link>
+        </SubMenuButton>
       </div>
     </div>
   );

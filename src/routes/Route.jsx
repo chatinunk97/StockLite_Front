@@ -23,6 +23,7 @@ import ShelfMainPage from "../pages/WMSPage/Shelf/ShelfMainPage";
 import ShelfSearch from "../pages/WMSPage/Shelf/ShelfSearch/ShelfSearch";
 import ShelfEdit from "../pages/WMSPage/Shelf/ShelfEdit/ShelfEdit";
 import PosMainPage from "../pages/POSPage/PosMainPage";
+import AdminSales from "../pages/AdminPage/AdminSales/AdminSales";
 
 export default function Route() {
   const router = createBrowserRouter([
@@ -110,6 +111,7 @@ export default function Route() {
             { path: "/admin/search", element: <AdminSearchUser /> },
             { path: "/admin/create", element: <AdminCreateUser /> },
             { path: "/admin/edit", element: <AdminEditUser /> },
+            { path: "/admin/sales", element: <AdminSales/> },
           ],
         },
       ],

@@ -4,7 +4,7 @@ export default function SaleItem({ el }) {
       <div className=" mx-10 w-20 p-1 text-center">{el.shelfItemId}</div>
       <div className=" mx-10 w-60 overflow-hidden p-1 text-center">{el.productName}</div>
       <div className=" mx-10 w-10 p-1 text-center">{el.quantity}</div>
-      <div className=" mx-10 p-1 text-center" w-10>{el.quantity * el.pricePerUnit}</div>
+      <div className=" mx-10 w-10 p-1 text-center" >{el.quantity * el.pricePerUnit}</div>
     </div>
   );
 }
