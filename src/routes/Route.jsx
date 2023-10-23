@@ -24,6 +24,8 @@ import ShelfSearch from "../pages/WMSPage/Shelf/ShelfSearch/ShelfSearch";
 import ShelfEdit from "../pages/WMSPage/Shelf/ShelfEdit/ShelfEdit";
 import PosMainPage from "../pages/POSPage/PosMainPage";
 import AdminSales from "../pages/AdminPage/AdminSales/AdminSales";
+import ErrorPage from "../pages/ErrorPage";
+import { Navigate } from "react-router-dom";
 
 export default function Route() {
   const router = createBrowserRouter([
@@ -43,6 +45,7 @@ export default function Route() {
           <HomePage />
         </Authenticated>
       ),
+      errorElement:  <Navigate to={"/"}/>,
       children: [
         {
           path: "/",
