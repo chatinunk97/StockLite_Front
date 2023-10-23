@@ -4,7 +4,7 @@ export default function SumDisplay() {
   const { itemCount, sumSale, makeOrderFunction } = usePOSContext();
 
   return (
-    <div className="flex flex-col gap-5 rounded-md overflow-hidden shadow-md">
+    <div className="flex flex-col gap-5 rounded-md  shadow-md">
       <div className="bg-white  flex flex-col items-center rounded-md">
         <div className="bg-blue-500 text-white w-full py-3 flex justify-center text-2xl font-bold shadow-md">
           Your Order
