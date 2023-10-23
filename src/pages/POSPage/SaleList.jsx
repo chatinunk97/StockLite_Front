@@ -1,16 +1,23 @@
 import usePOSContext from "../../hooks/pos-hook";
+import SaleItem from "./SaleItem";
 export default function SaleList() {
   const { saleList } = usePOSContext();
   return (
-    <div>
-      {saleList.map((el) => {
-        return (
-          <h1 key={el.shelfItemId}>
-            ID : {el.shelfItemId} Product : {el.productName} PPU :{" "}
-            {el.pricePerUnit} Quantity : {el.quantity}
-          </h1>
-        );
-      })}
+    <div className="flex flex-col  bg-white   rounded-md shadow-md">
+      <div className="bg-blue-100 w-full py-3 flex justify-center text-2xl font-bold shadow-md">
+        Your Receipt
+      </div>
+      <div className="flex  bg-smoothgray font-semibold ">
+        <div className=" ml-14 w-24 p-1 text-center">ID</div>
+        <div className=" ml-36 w-20 p-1 text-center">Product</div>
+        <div className=" ml-32 w-20 p-1 text-center">Quantity</div>
+        <div className=" ml-5 w-20 p-1 text-center">THB</div>
+      </div>
+      <div className="flex flex-col p-5 gap-2">
+        {saleList.map((el) => {
+          return <SaleItem key={el.shelfItemId} el={el}></SaleItem>;
+        })}
+      </div>
     </div>
   );
 }
