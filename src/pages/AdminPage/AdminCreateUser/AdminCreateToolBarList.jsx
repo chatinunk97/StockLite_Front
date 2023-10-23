@@ -9,7 +9,7 @@ import date from "date-and-time";
 import axios from "axios";
 
 export default function AdminCreateToolBarList({ data, setData }) {
-  const { createUserInput, setCreateUserInput, setSearchUserResult } =
+  const { createUserInput, setCreateUserInput, searchUser,searchInput } =
     useAdminContext();
   const { LoginUser } = useAuthContext();
   const inputBarList = [
@@ -52,7 +52,7 @@ export default function AdminCreateToolBarList({ data, setData }) {
         "DD MMM YYYY"
       );
 
-      setSearchUserResult((prev) => [newUser, ...prev]);
+      searchUser(searchInput)
       setCreateUserInput({
         firstName: "",
         lastName: "",
