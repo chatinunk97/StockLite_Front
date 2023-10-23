@@ -197,7 +197,6 @@ export default function WMSContextProvider({ children }) {
       }
       setSearchOrderResult([]);
     } catch (error) {
-      console.log(error);
       AlertNotiSuc(
         "error",
         "Something Went wrong",
