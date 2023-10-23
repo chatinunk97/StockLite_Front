@@ -31,7 +31,7 @@ export default function StockDisplayBox({ openModal }) {
             }}
             className="font-bold text-white w-full bg-green-600 rounded-lg flex justify-center items-center px-2"
           >
-            Edit
+            Add to Shelf
           </button>
           <button 
             onClick={() => {

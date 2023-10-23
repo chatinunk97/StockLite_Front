@@ -10,7 +10,7 @@ export default function AdminSales() {
       {
         label: "Sales",
         data: rawData.map((data) => data.sales),
-        backgroundColor: "#2a71d0",
+        backgroundColor: "rgba(75,192,192,1)",
         borderColor: "black",
         borderWidth: 2,
       },
