@@ -37,7 +37,14 @@ export default function Route() {
         </RedirectIfAuthenticate>
       ),
     },
-    { path: "/register", element: <RegisterPage /> },
+    {
+      path: "/register",
+      element: (
+        <RedirectIfAuthenticate>
+          <RegisterPage />
+        </RedirectIfAuthenticate>
+      ),
+    },
     {
       path: "/",
       element: (
@@ -45,7 +52,7 @@ export default function Route() {
           <HomePage />
         </Authenticated>
       ),
-      errorElement:  <Navigate to={"/"}/>,
+      errorElement: <Navigate to={"/"} />,
       children: [
         {
           path: "/",
@@ -93,15 +100,15 @@ export default function Route() {
               path: "/wms/shelf",
               element: <ShelfMainPage />,
               children: [
-                { path: "/wms/shelf/search", element: <ShelfSearch/> },
-                { path: "/wms/shelf/edit", element: <ShelfEdit/> },
+                { path: "/wms/shelf/search", element: <ShelfSearch /> },
+                { path: "/wms/shelf/edit", element: <ShelfEdit /> },
               ],
             },
           ],
         },
         {
           path: "/pos",
-          element: <PosMainPage/>,
+          element: <PosMainPage />,
         },
         {
           path: "/admin",
@@ -114,10 +121,10 @@ export default function Route() {
             { path: "/admin/search", element: <AdminSearchUser /> },
             { path: "/admin/create", element: <AdminCreateUser /> },
             { path: "/admin/edit", element: <AdminEditUser /> },
-            { path: "/admin/sales", element: <AdminSales/> },
+            { path: "/admin/sales", element: <AdminSales /> },
           ],
         },
-        {path : "/contact" , element : <ContactUs/>}
+        { path: "/contact", element: <ContactUs /> },
       ],
     },
   ]);
