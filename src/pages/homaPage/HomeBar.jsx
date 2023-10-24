@@ -74,7 +74,7 @@ export default function HomeBar({ LoginUser, logOutFunction }) {
               break;
           }
         })}
-        <MenuButton text={"Contact Us"}></MenuButton>
+        <MenuButton text={"Contact Us"} link={"/contact"} ></MenuButton>
       </div>
 
       {/*Drop down for phone view*/}

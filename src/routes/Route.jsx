@@ -25,6 +25,7 @@ import ShelfEdit from "../pages/WMSPage/Shelf/ShelfEdit/ShelfEdit";
 import PosMainPage from "../pages/POSPage/PosMainPage";
 import AdminSales from "../pages/AdminPage/AdminSales/AdminSales";
 import { Navigate } from "react-router-dom";
+import ContactUs from "../pages/ContactUs/ContactUs";
 
 export default function Route() {
   const router = createBrowserRouter([
@@ -116,6 +117,7 @@ export default function Route() {
             { path: "/admin/sales", element: <AdminSales/> },
           ],
         },
+        {path : "/contact" , element : <ContactUs/>}
       ],
     },
   ]);
