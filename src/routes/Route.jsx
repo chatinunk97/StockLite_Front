@@ -8,7 +8,7 @@ import HomeBody from "../pages/homaPage/HomeBody";
 import AdminMainPage from "../pages/AdminPage/AdminMainPage";
 import AdminSearchUser from "../pages/AdminPage/AdminSearchUser/AdminSearchUser";
 import AdminCreateUser from "../pages/AdminPage/AdminCreateUser/AdminCreateUser";
-import AdminEditUser from "../pages/AdminPage/AdminEditUSer/AdminEditUser";
+import AdminEditUser from "../pages/AdminPage/AdminEditUser/AdminEditUser";
 import WMSHomePage from "../pages/WMSPage/WMSHomePage";
 import SupplierMainPage from "../pages/WMSPage/Supplier/SupplierMainPage";
 import SupplierSearch from "../pages/WMSPage/Supplier/SupplierSearch/SupplierSearch";
