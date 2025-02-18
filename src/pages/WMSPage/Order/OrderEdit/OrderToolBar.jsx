@@ -26,7 +26,7 @@ export default function OrderToolBar() {
       type: "dropdownSearch",
     },
     { id: 2, data: "receiveDate", filterName: "Receive Date", type: "date" },
-    { id: 3, data: "sumPrice", filterName: "Total expense" },
+    { id: 3, data: "sumPrice", filterName: "Total expense" ,type : "number"},
   ];
   const handleInputChange = (event, field) => {
     if (field === "supplierId") {

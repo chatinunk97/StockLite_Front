@@ -57,6 +57,7 @@ export default function SupplierSearchToolBar() {
                   {el.filterName}
                 </div>
                 <InputBar
+                  type={el.type}
                   value={searchInput[el.data]}
                   onChange={(event) => {
                     handleInputChange(event, el.data);
@@ -66,11 +67,7 @@ export default function SupplierSearchToolBar() {
             );
           }
         })}
-        <SubmitButton
-          width="w-full"
-        >
-          Search
-        </SubmitButton>
+        <SubmitButton width="w-full">Search</SubmitButton>
       </form>
     </div>
   );

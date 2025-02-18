@@ -10,7 +10,13 @@ export default function OrderEditForm({ onClose }) {
     editOrderFunction,
   } = useWMSContext();
   const inputList = [
-    { id: 1, data: "orderId", filterName: "ID", isDisabled: true },
+    {
+      id: 1,
+      data: "orderId",
+      filterName: "ID",
+      isDisabled: true,
+      type: "number",
+    },
     { id: 2, data: "receiveDate", filterName: "Receive Date", type: "date" },
     {
       id: 3,
@@ -24,7 +30,7 @@ export default function OrderEditForm({ onClose }) {
       filterName: "Supplier Name",
       isDisabled: true,
     },
-    { id: 5, data: "sumPrice", filterName: "Total Expense" },
+    { id: 5, data: "sumPrice", filterName: "Total Expense", type: "number" },
   ];
   const handleInputChange = async (event, field) => {
     setEditOrderInput({
@@ -32,11 +38,13 @@ export default function OrderEditForm({ onClose }) {
       [field]: event.target.value,
     });
   };
-  useEffect(()=>{setEditOrderInput(selectedOrder)},[])
+  useEffect(() => {
+    setEditOrderInput(selectedOrder);
+  }, []);
 
   const handleEditSubmit = async (event) => {
     event.preventDefault();
-    editOrderFunction()
+    editOrderFunction();
     // await editSupplierFunction(editSupplierInput);
     onClose(false);
   };

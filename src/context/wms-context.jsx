@@ -9,7 +9,13 @@ export const WMSContext = createContext();
 export default function WMSContextProvider({ children }) {
   //Supplier
   const [toolBarList, setToolBar] = useState([
-    { id: 1, data: "supplierId", filterName: "Supplier ID", isOn: false },
+    {
+      id: 1,
+      data: "supplierId",
+      filterName: "Supplier ID",
+      isOn: false,
+      type: "number",
+    },
     { id: 2, data: "supplierName", filterName: "Supplier name", isOn: true },
     {
       id: 3,
@@ -132,14 +138,27 @@ export default function WMSContextProvider({ children }) {
 
   const [orderBar, setOrderBar] = useState([
     { id: 1, data: "username", filterName: "username", isOn: false },
-    { id: 2, data: "orderId", filterName: "Order ID", isOn: true },
+    {
+      id: 2,
+      data: "orderId",
+      filterName: "Order ID",
+      isOn: true,
+      type: "number",
+    },
     {
       id: 3,
       data: "supplierId",
       filterName: "Supplier ID",
       isOn: false,
+      type: "number",
     },
-    { id: 4, data: "sumPrice", filterName: "Total Expense", isOn: false },
+    {
+      id: 4,
+      data: "sumPrice",
+      filterName: "Total Expense",
+      isOn: false,
+      type: "number",
+    },
     {
       id: 5,
       data: "startDate",
@@ -288,8 +307,20 @@ export default function WMSContextProvider({ children }) {
 
   // Stock
   const [stockBar, setStockBar] = useState([
-    { id: 1, data: "stockId", filterName: "Stock ID", isOn: true },
-    { id: 2, data: "orderId", filterName: "Order ID", isOn: false },
+    {
+      id: 1,
+      data: "stockId",
+      filterName: "Stock ID",
+      isOn: true,
+      type: "number",
+    },
+    {
+      id: 2,
+      data: "orderId",
+      filterName: "Order ID",
+      isOn: false,
+      type: "number",
+    },
     {
       id: 3,
       data: "supplierName",
@@ -302,12 +333,14 @@ export default function WMSContextProvider({ children }) {
       data: "stockQuantity",
       filterName: "Quantity",
       isOn: false,
+      type: "number",
     },
     {
       id: 6,
       data: "pricePerUnit",
       filterName: "Price per unit",
       isOn: false,
+      type: "number",
     },
     {
       id: 7,
@@ -460,15 +493,34 @@ export default function WMSContextProvider({ children }) {
   //Shelf
   const [searchShelfResult, setSearchShelfResult] = useState([]);
   const [shelfBar, setShelfBar] = useState([
-    { id: 1, data: "shelfItemId", filterName: "Shelf ID", isOn: true },
-    { id: 2, data: "stockId", filterName: "Stock ID", isOn: false },
+    {
+      id: 1,
+      data: "shelfItemId",
+      filterName: "Shelf ID",
+      isOn: true,
+      type: "number",
+    },
+    {
+      id: 2,
+      data: "stockId",
+      filterName: "Stock ID",
+      isOn: false,
+      type: "number",
+    },
     { id: 3, data: "productName", filterName: "PropductName", isOn: false },
-    { id: 4, data: "stockQuantity", filterName: "Stock", isOn: false },
+    {
+      id: 4,
+      data: "stockQuantity",
+      filterName: "Stock",
+      isOn: false,
+      type: "number",
+    },
     {
       id: 5,
       data: "shelfQuantity",
       filterName: "Shelf Quantity",
       isOn: false,
+      type: "number",
     },
     {
       id: 6,

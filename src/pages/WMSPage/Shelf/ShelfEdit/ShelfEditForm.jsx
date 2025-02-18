@@ -35,6 +35,7 @@ export default function ShelfEditForm({ onClose }) {
       data: "quantityTobeMoved",
       filterName: "Quantity moving to shelf",
       isDisabled: false,
+      type: "number",
     },
   ];
   useEffect(() => {
@@ -54,7 +55,9 @@ export default function ShelfEditForm({ onClose }) {
         selectedShelf[i] = 0;
       }
     }
-    setEditShelfInput((prev)=>{return {...prev , ...selectedShelf}});
+    setEditShelfInput((prev) => {
+      return { ...prev, ...selectedShelf };
+    });
   }, []);
 
   const handleInputChange = async (event, field) => {
