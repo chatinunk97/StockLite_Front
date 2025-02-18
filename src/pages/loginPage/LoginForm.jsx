@@ -7,6 +7,7 @@ import { AlertNG } from "../../utils/sweetAlert";
 
 export default function LoginForm() {
   const { loginFunction } = useAuthContext();
+  const [isLoading, setIsLoading] = useState(false);
   const [loginInput, setLoginInput] = useState({
     usernameOrEmail: "",
     password: "",
@@ -19,6 +20,7 @@ export default function LoginForm() {
 
   const handleSubmitLogin = async () => {
     try {
+      setIsLoading(true);
       setLoginError(null);
       const validateResult = validateLogin(LoginSchema, loginInput);
       if (validateResult.error) {
@@ -27,7 +29,9 @@ export default function LoginForm() {
       }
       await loginFunction(validateResult.value);
     } catch (error) {
-      AlertNG(error.response.data.message)
+      AlertNG(error.response.data.message);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -54,7 +58,9 @@ export default function LoginForm() {
           handleInputChange(event, "password");
         }}
       />
-      <SubmitButton onClick={handleSubmitLogin}>Login</SubmitButton>
+      <SubmitButton isLoading={isLoading} onClick={handleSubmitLogin}>
+        Login
+      </SubmitButton>
     </form>
   );
 }

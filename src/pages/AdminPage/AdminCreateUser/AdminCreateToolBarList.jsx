@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import InputBar from "../../../components/InputBar";
 import OptionComponent from "../../../components/OptionComponent";
 import SubmitButton from "../../../components/SubmitButton";
@@ -9,9 +9,10 @@ import date from "date-and-time";
 import axios from "axios";
 
 export default function AdminCreateToolBarList({ data, setData }) {
-  const { createUserInput, setCreateUserInput, searchUser,searchInput } =
+  const { createUserInput, setCreateUserInput, searchUser, searchInput } =
     useAdminContext();
   const { LoginUser } = useAuthContext();
+  const [isLoading, setIsLoading] = useState(false);
   const inputBarList = [
     { id: 1, data: "firstName", fieldName: "First name" },
     { id: 2, data: "lastName", fieldName: "Last name" },
@@ -40,6 +41,7 @@ export default function AdminCreateToolBarList({ data, setData }) {
   };
   const handleCreateUser = async () => {
     try {
+      setIsLoading(true);
       const inputWithCompanyID = {
         ...createUserInput,
         companyId: LoginUser.companyId,
@@ -52,7 +54,7 @@ export default function AdminCreateToolBarList({ data, setData }) {
         "DD MMM YYYY"
       );
 
-      searchUser(searchInput)
+      searchUser(searchInput);
       setCreateUserInput({
         firstName: "",
         lastName: "",
@@ -64,13 +66,14 @@ export default function AdminCreateToolBarList({ data, setData }) {
         userRole: "employee",
       });
       AlertNotiSuc("success", "New User Created!", "User Created successfully");
-     
     } catch (error) {
       AlertNotiSuc(
         "error",
         "Something Went wrong",
         `${error.response.data.message}`
       );
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -108,7 +111,9 @@ export default function AdminCreateToolBarList({ data, setData }) {
           </div>
         );
       })}
-      <SubmitButton width="w-full">Create User</SubmitButton>
+      <SubmitButton isLoading={isLoading} width="w-full">
+        Create User
+      </SubmitButton>
     </form>
   );
 }

@@ -42,11 +42,13 @@ export default function RegisterForm() {
     repeat_password: "",
   });
   const [registerError, setRegisterError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const handleInputChange = (event, field) => {
     setRegisterInput({ ...registerInput, [field]: event.target.value });
   };
   const handleSubmitSignUp = async () => {
     try {
+      setIsLoading(true);
       const validateResult = validateLogin(RegisterAdminSchema, registerInput);
       if (validateResult.error) {
         setRegisterError(validateResult.error);
@@ -62,6 +64,8 @@ export default function RegisterForm() {
     } catch (error) {
       console.log(error);
       Swal.fire("Login Failed", `${error.response.data.message}`, "error");
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -89,7 +93,11 @@ export default function RegisterForm() {
         </div>
       ))}
       <div className="col-span-2 flex flex-col md:flex-row justify-start gap-5 items-center">
-        <SubmitButton onClick={handleSubmitSignUp} width="w-full md:w-48 ">
+        <SubmitButton
+          isLoading={isLoading}
+          onClick={handleSubmitSignUp}
+          width="w-full md:w-48 "
+        >
           Sign up
         </SubmitButton>
         <Link to={"/login"}>

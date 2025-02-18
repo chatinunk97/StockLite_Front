@@ -1,3 +1,4 @@
+import { useState } from "react";
 import POSContextProvider from "../../context/pos-context";
 import SaleList from "./SaleList";
 import SearchBar from "./SearchBar";

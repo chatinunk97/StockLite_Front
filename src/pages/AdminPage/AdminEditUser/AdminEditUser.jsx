@@ -2,7 +2,7 @@ import AdminSearchDisplayBox from "../AdminSearchUser/AdminSearchDisplayBox";
 import ToolBar from "../../../components/ToolBar";
 import { useAdminContext } from "../../../hooks/admin-hook";
 import InputBar from "../../../components/InputBar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import OptionComponent from "../../../components/OptionComponent";
 import SubmitButton from "../../../components/SubmitButton";
 export default function AdminEditUser() {
@@ -37,6 +37,29 @@ export default function AdminEditUser() {
   const handleInputChange = (event, field) => {
     setEditUserInput({ ...editUserInput, [field]: event.target.value });
   };
+  const [isLoadingSAVE, setIsLoadingSAVE] = useState(false);
+  const [isLoadingDELETE, setIsLoadingDELETE] = useState(false);
+  const handleSaveChange = async () => {
+    try {
+      setIsLoadingSAVE(true);
+      await editUserFunction(editUserInput);
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    } finally {
+      setIsLoadingSAVE(false);
+    }
+  };
+  const handleDelete = async () => {
+    try {
+      setIsLoadingDELETE(true);
+      await deleteUserFunction(editUserInput.userId);
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    } finally {
+      setIsLoadingDELETE(false);
+    }
+  };
+
   useEffect(() => {
     const selectedUserIndex = searchUserResult.findIndex(
       (el) => el.userId === selectedRow
@@ -50,8 +73,9 @@ export default function AdminEditUser() {
   return (
     <div className=" bg-smoothgray flex flex-col relative pt-5 lg:p-2 rounded-md">
       <ToolBar
-        onSubmit={() => editUserFunction(editUserInput)}
+        onSubmit={handleSaveChange}
         buttonText="Save Change"
+        isLoading={isLoadingSAVE}
         content={editUserBar.map((el) => {
           return (
             <div className="flex" key={el.id}>
@@ -93,9 +117,8 @@ export default function AdminEditUser() {
       />
       {selectedRow && editUserInput?.userRole !== "admin" && (
         <SubmitButton
-          onClick={() => {
-            deleteUserFunction(editUserInput.userId);
-          }}
+          isLoading={isLoadingDELETE}
+          onClick={handleDelete}
           color="bg-waterredHover"
           hover="hover:bg-waterred"
         >

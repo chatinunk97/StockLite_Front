@@ -12,6 +12,7 @@ export default function POSContextProvider({ children }) {
   const [itemCount, setItemCount] = useState(0);
   const [sumSale, setSumSale] = useState(0);
   const [searchShelfInput, setSearchShelfInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const getShelfItemFunction = async () => {
     try {
       if (!searchShelfInput) {
@@ -63,13 +64,14 @@ export default function POSContextProvider({ children }) {
   };
   const makeOrderFunction = async () => {
     try {
-      if(!saleList.length){
+      setIsLoading(true);
+      if (!saleList.length) {
         AlertNotiSuc(
           "error",
           "No product found",
           "Please input atleast 1 product before making order"
         );
-        return
+        return;
       }
       const transformedArray = saleList.map((item) => {
         return {
@@ -81,18 +83,18 @@ export default function POSContextProvider({ children }) {
           },
         };
       });
-  
-      const result =  transformedArray ;
+
+      const result = transformedArray;
       const input = { sumSale, item: result };
-      const orderResult = await axios.post('/pos/transaction',input)
+      const orderResult = await axios.post("/pos/transaction", input);
       AlertNotiSuc(
         "success",
         "Order Made",
         `Your Order is  : "${orderResult.data.createResult.transactionId}"`
       );
-      setItemCount(0)
-      setSaleList([])
-      setSumSale(0)
+      setItemCount(0);
+      setSaleList([]);
+      setSumSale(0);
     } catch (error) {
       console.log(error);
       AlertNotiSuc(
@@ -100,8 +102,9 @@ export default function POSContextProvider({ children }) {
         "Something Went wrong",
         `${error.response?.data.message}`
       );
+    } finally {
+      setIsLoading(false);
     }
-
   };
 
   const shareObj = {
@@ -114,7 +117,8 @@ export default function POSContextProvider({ children }) {
     makeOrderFunction,
     setSaleList,
     setItemCount,
-    setSumSale
+    setSumSale,
+    isLoading,
   };
   return <POSContext.Provider value={shareObj}>{children}</POSContext.Provider>;
 }
