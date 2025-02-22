@@ -9,7 +9,7 @@
 - **Roles**: Super Admin, Employee, and Supervisor.
   - **Employee**: Access POS to assist customers and handle transactions.
   - **Supervisor**: Access WMS and POS to manage stock, receiving orders, and shelf placements.
-- **Login**: Username/password authentication and optional Google login.
+- **Login**: Username/password authentication
 
 ### Warehouse Management System (WMS)
 - **Inbound Workflow**: 
